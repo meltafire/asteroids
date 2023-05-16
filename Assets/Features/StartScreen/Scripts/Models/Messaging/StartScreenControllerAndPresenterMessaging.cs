@@ -1,11 +1,11 @@
 ﻿using System;
 
-public class StartScreenControllerAndPresenterMessaging : IStartScreenPresenterMessaging, IStartScreenFromPresenterMessaging
+public class StartScreenControllerAndPresenterMessaging : IStartScreenPresenterMessaging, IStateWithTaskConditionProvider
 {
-    public event Action OnButtonClick;
+    public event Action ConditionHappened;
 
     public void InvokeButtonClick()
     {
-        OnButtonClick?.Invoke();
+        ConditionHappened?.Invoke();
     }
 }

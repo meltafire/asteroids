@@ -1,12 +1,8 @@
 public class GameSessionStateMachine : StateMachine
 {
-    private readonly IGameSessionFromPlayerMessaging _gameSessionFromPlayerMessaging;
-
-    public GameSessionStateMachine(IGameSessionFromPlayerMessaging gameSessionFromPlayerMessaging) : base()
+    public GameSessionStateMachine(IStateWithTaskConditionProvider conditionProvider) : base()
     {
-        _gameSessionFromPlayerMessaging = gameSessionFromPlayerMessaging;
-
-        _statesQueue.Enqueue(new GameSessionGameState(_gameSessionFromPlayerMessaging));
+        _statesQueue.Enqueue(new GameSessionGameState(conditionProvider));
         _statesQueue.Enqueue(new GameSessionGameOverState());
         _statesQueue.Enqueue(new GameSessionCleanUpState());
     }

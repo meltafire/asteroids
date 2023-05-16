@@ -1,6 +1,6 @@
 ﻿using System;
 
-public class GameSessionAndPlayerMessaging : IGameSessionFromPlayerMessaging
+public class GameSessionAndPlayerMessaging : IStateWithTaskConditionProvider
 {
-    public event Action OnPlayerDeath;
+    public event Action ConditionHappened;
 }
