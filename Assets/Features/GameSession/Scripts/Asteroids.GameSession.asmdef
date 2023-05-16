@@ -2,7 +2,8 @@
     "name": "Asteroids.GameSession",
     "rootNamespace": "",
     "references": [
-        "Asteroids.Infrastructure"
+        "Asteroids.Infrastructure",
+        "Asteroids.Player"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

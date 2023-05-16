@@ -1,18 +1,20 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerView : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    private PlayerPresenter _presenter;
+    private Transform _transform;
+
+    public void Initialize(PlayerPresenter presenter)
     {
-        
+        _presenter = presenter;
+        _transform = transform;
+
+        _presenter.OnViewCreated();
     }
 
-    // Update is called once per frame
-    void Update()
+    public void Spawn()
     {
-        
+        gameObject.SetActive(true);
     }
 }
