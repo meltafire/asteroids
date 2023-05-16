@@ -1,10 +1,8 @@
 {
-    "name": "Asteroids.App",
+    "name": "Asteroids.GameSession",
     "rootNamespace": "",
     "references": [
-        "Asteroids.StartScreen",
-        "Asteroids.Infrastructure",
-        "Asteroids.GameSession"
+        "Asteroids.Infrastructure"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

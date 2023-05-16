@@ -3,17 +3,10 @@ using UnityEngine;
 
 public class AppController
 {
-    public async Awaitable Execute(RectTransform canvasTransform, CancellationToken token)
+    public Awaitable Execute(RectTransform canvasTransform, CancellationToken token)
     {
-        var stateMachine = new StateMachine(canvasTransform);
+        var stateMachine = new AppStateMachine(canvasTransform);
 
-        var state = stateMachine.GetNextState();
-
-        while (state != null && !token.IsCancellationRequested)
-        {
-            await state.Execute(token);
-
-            state = stateMachine.GetNextState();
-        }
+        return stateMachine.GoThroughStates(token);
     }
 }
