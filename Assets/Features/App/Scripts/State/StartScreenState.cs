@@ -1,7 +1,19 @@
+using System.Threading;
+using UnityEngine;
+
 public class StartScreenState : IState
 {
-    public void Execute()
+    private readonly RectTransform _parentTransform;
+
+    public StartScreenState(RectTransform parentTransform)
     {
-        throw new System.NotImplementedException();
+        _parentTransform = parentTransform;
+    }
+
+    public Awaitable Execute(CancellationToken token)
+    {
+        var facade = new StartScreenFacade(_parentTransform);
+
+        return facade.Execute(token);
     }
 }

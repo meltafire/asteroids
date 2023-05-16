@@ -1,14 +1,17 @@
+using System.Threading;
+using UnityEngine;
+
 public class AppController
 {
-    public void Execute()
+    public async Awaitable Execute(RectTransform canvasTransform, CancellationToken token)
     {
-        var stateMachine = new StateMachine();
+        var stateMachine = new StateMachine(canvasTransform);
 
         var state = stateMachine.GetNextState();
 
-        while (state != null)
+        while (state != null && !token.IsCancellationRequested)
         {
-            state.Execute();
+            await state.Execute(token);
 
             state = stateMachine.GetNextState();
         }

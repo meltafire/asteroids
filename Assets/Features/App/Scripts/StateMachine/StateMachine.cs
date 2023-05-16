@@ -1,14 +1,15 @@
 using System.Collections.Generic;
+using UnityEngine;
 
 public class StateMachine
 {
     private readonly Queue<IState> _statesQueue;
 
-    public StateMachine()
+    public StateMachine(RectTransform parentTransform)
     {
         _statesQueue = new Queue<IState>();
 
-        _statesQueue.Enqueue(new StartScreenState());
+        _statesQueue.Enqueue(new StartScreenState(parentTransform));
         _statesQueue.Enqueue(new GameSessionState());
     }
 

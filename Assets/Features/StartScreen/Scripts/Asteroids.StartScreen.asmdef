@@ -1,9 +1,7 @@
 {
-    "name": "Asteroids.App",
+    "name": "Asteroids.StartScreen",
     "rootNamespace": "",
-    "references": [
-        "Asteroids.StartScreen"
-    ],
+    "references": [],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,

@@ -1,6 +1,10 @@
+using System.Threading;
+using UnityEngine;
+
 public class GameSessionState : IState
 {
-    public void Execute()
+    public Awaitable Execute(CancellationToken token)
     {
+        throw new System.NotImplementedException();
     }
 }

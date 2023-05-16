@@ -1,4 +1,7 @@
+using System.Threading;
+using UnityEngine;
+
 public interface IState
 {
-    void Execute();
+    Awaitable Execute(CancellationToken token);
 }
