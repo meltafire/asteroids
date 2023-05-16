@@ -1,4 +1,3 @@
-using System;
 using System.Threading;
 using UnityEngine;
 
@@ -16,7 +15,7 @@ public class StartScreenController
     public async Awaitable Execute(CancellationToken token)
     {
         _completionSource = new AwaitableCompletionSource();
-        var tokenRegistration = token.Register(CancelAwaingOfButtonClick);
+        var tokenRegistration = token.Register(CancelAwaitingOfButtonClick);
 
         _messaging.OnButtonClick += OnButtonClicked;
 
@@ -26,7 +25,7 @@ public class StartScreenController
         tokenRegistration.Dispose();
     }
 
-    private void CancelAwaingOfButtonClick()
+    private void CancelAwaitingOfButtonClick()
     {
         _completionSource.TrySetCanceled();
     }

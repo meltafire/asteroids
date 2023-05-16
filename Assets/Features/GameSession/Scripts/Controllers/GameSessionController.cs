@@ -7,7 +7,9 @@ public class GameSessionController
     {
         while (!token.IsCancellationRequested)
         {
-            var stateMachine = new GameSessionStateMachine();
+            var gameSessionAndPlayerMessaging = new GameSessionAndPlayerMessaging();
+
+            var stateMachine = new GameSessionStateMachine(gameSessionAndPlayerMessaging);
 
             await stateMachine.GoThroughStates(token);
         }
