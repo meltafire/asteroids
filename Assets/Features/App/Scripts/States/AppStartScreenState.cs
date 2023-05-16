@@ -1,11 +1,11 @@
 using System.Threading;
 using UnityEngine;
 
-public class StartScreenState : IState
+public class AppStartScreenState : IState
 {
     private readonly RectTransform _parentTransform;
 
-    public StartScreenState(RectTransform parentTransform)
+    public AppStartScreenState(RectTransform parentTransform)
     {
         _parentTransform = parentTransform;
     }

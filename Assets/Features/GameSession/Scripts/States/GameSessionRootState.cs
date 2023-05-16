@@ -1,7 +1,7 @@
 using System.Threading;
 using UnityEngine;
 
-public class GameSessionController
+public class GameSessionRootState
 {
     public async Awaitable Execute(CancellationToken token)
     {

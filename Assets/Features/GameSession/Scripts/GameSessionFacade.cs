@@ -5,7 +5,7 @@ public class GameSessionFacade
 {
     public Awaitable Execute(CancellationToken token)
     {
-        var controller = new GameSessionController();
+        var controller = new GameSessionRootState();
 
         return controller.Execute(token);
     }

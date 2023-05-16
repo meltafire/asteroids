@@ -15,9 +15,9 @@ public class AppLauncher : MonoBehaviour
 
     private void Start()
     {
-        var controller = new AppController();
+        var rootState = new AppRootState(_canvasTransform);
 
-        controller.Execute(_canvasTransform, _cancelationTokenSource.Token);
+        rootState.Execute(_cancelationTokenSource.Token);
     }
 
     private void OnDestroy()

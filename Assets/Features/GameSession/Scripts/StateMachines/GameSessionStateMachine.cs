@@ -6,8 +6,8 @@ public class GameSessionStateMachine : StateMachine
     {
         _gameSessionFromPlayerMessaging = gameSessionFromPlayerMessaging;
 
-        _statesQueue.Enqueue(new GameState(_gameSessionFromPlayerMessaging));
-        _statesQueue.Enqueue(new GameOverState());
-        _statesQueue.Enqueue(new CleanUpState());
+        _statesQueue.Enqueue(new GameSessionGameState(_gameSessionFromPlayerMessaging));
+        _statesQueue.Enqueue(new GameSessionGameOverState());
+        _statesQueue.Enqueue(new GameSessionCleanUpState());
     }
 }

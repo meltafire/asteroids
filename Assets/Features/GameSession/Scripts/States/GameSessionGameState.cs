@@ -1,13 +1,13 @@
 using System.Threading;
 using UnityEngine;
 
-public class GameState : IState
+public class GameSessionGameState : IState
 {
     private readonly IGameSessionFromPlayerMessaging _mesasging;
 
     private AwaitableCompletionSource _completionSource;
 
-    public GameState(IGameSessionFromPlayerMessaging mesasging)
+    public GameSessionGameState(IGameSessionFromPlayerMessaging mesasging)
     {
         _mesasging = mesasging;
     }

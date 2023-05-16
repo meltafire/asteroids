@@ -1,13 +1,13 @@
 using System.Threading;
 using UnityEngine;
 
-public class StartScreenController
+public class StartScreenRootState
 {
     private readonly IStartScreenFromPresenterMessaging _messaging;
 
     private AwaitableCompletionSource _completionSource;
 
-    public StartScreenController(IStartScreenFromPresenterMessaging messaging)
+    public StartScreenRootState(IStartScreenFromPresenterMessaging messaging)
     {
         _messaging = messaging;
     }

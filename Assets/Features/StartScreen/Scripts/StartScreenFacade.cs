@@ -20,11 +20,11 @@ public class StartScreenFacade
         var messaging = new StartScreenControllerAndPresenterMessaging();
 
         var presenter = new StartScreenPresenter(model, messaging);
-        var controller = new StartScreenController(messaging);
+        var rootState = new StartScreenRootState(messaging);
 
         view.Initialize(presenter);
 
-        await controller.Execute(token);
+        await rootState.Execute(token);
 
         await Resources.UnloadUnusedAssets();
     }

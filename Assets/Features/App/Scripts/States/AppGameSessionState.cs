@@ -1,7 +1,7 @@
 using System.Threading;
 using UnityEngine;
 
-public class GameSessionState : IState
+public class AppGameSessionState : IState
 {
     public Awaitable Execute(CancellationToken token)
     {
