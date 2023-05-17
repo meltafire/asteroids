@@ -5,7 +5,9 @@ public class GameSessionRootState
 {
     public async Awaitable Execute(CancellationToken token)
     {
-        var playerFacade = new PlayerFacade();
+        var loopPlacementService = new LoopPlacementService(Camera.main);
+
+        var playerFacade = new PlayerFacade(loopPlacementService);
         var playerMessaging = playerFacade.Execute();
 
         while (!token.IsCancellationRequested)

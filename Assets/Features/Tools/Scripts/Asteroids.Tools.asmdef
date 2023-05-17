@@ -1,11 +1,7 @@
 {
-    "name": "Asteroids.Player",
+    "name": "Asteroids.Tools",
     "rootNamespace": "",
-    "references": [
-        "Unity.InputSystem",
-        "Asteroids.Tools",
-        ""
-    ],
+    "references": [],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,

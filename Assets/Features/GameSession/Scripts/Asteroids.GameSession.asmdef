@@ -3,7 +3,8 @@
     "rootNamespace": "",
     "references": [
         "Asteroids.Infrastructure",
-        "Asteroids.Player"
+        "Asteroids.Player",
+        "Asteroids.Tools"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
