@@ -10,6 +10,8 @@ public class GameSessionRootState
         var playerFacade = new PlayerFacade(loopPlacementService);
         var playerMessaging = playerFacade.Execute();
 
+        
+
         while (!token.IsCancellationRequested)
         {
             var gameSessionAndPlayerMessaging = new GameSessionAndPlayerMessaging();
