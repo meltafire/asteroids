@@ -10,13 +10,14 @@ public class GameSessionRootState
         var playerFacade = new PlayerFacade(loopPlacementService);
         var playerMessaging = playerFacade.Execute();
 
+        var asteroidsService = new AsteroidsService(loopPlacementService, loopPlacementService);
         
 
         while (!token.IsCancellationRequested)
         {
             var gameSessionAndPlayerMessaging = new GameSessionAndPlayerMessaging();
 
-            var stateMachine = new GameSessionStateMachine(playerMessaging, gameSessionAndPlayerMessaging);
+            var stateMachine = new GameSessionStateMachine(playerMessaging, asteroidsService, gameSessionAndPlayerMessaging);
 
             await stateMachine.GoThroughStates(token);
         }

@@ -1,10 +1,14 @@
-﻿using UnityEngine.Pool;
+﻿using System;
 
-public class AsteroidMessaging : IAsteroidToPlayfieldMessaging
+public class AsteroidMessaging : IAsteroidToPlayfieldMessaging, IAsteroidMessaging
 {
-    private readonly IObjectPool<AsteroidMessaging> _pool;
+    private readonly Pool<AsteroidMessaging> _pool;
 
-    public AsteroidMessaging(IObjectPool<AsteroidMessaging> pool)
+    public event Action ShowRequest;
+    public event Action DestroyRequest;
+    public event Action HideRequest;
+
+    public AsteroidMessaging(Pool<AsteroidMessaging> pool)
     {
         _pool = pool;
     }
@@ -14,13 +18,18 @@ public class AsteroidMessaging : IAsteroidToPlayfieldMessaging
         _pool.Release(this);
     }
 
+    public void Hide()
+    {
+        HideRequest?.Invoke();
+    }
+
     public void Show()
     {
-        
+        ShowRequest?.Invoke();
     }
 
     public void RequestDestroy()
     {
-
+        DestroyRequest?.Invoke();
     }
 }

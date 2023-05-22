@@ -3,7 +3,6 @@
 public class PlayerViewModel
 {
     private const int RotationSpeed = 100;
-    private const float MovementSpeed = .05f;
     private const float SqrSpeedLimit = 10f;
 
     private readonly PlayerView _playerView;
@@ -34,7 +33,7 @@ public class PlayerViewModel
 
     public void Accelerate()
     {
-        var expectedVelocity = _velocity + _playerView.ForwardDirection * MovementSpeed * Time.deltaTime;
+        var expectedVelocity = _velocity + _playerView.ForwardDirection * Time.deltaTime;
 
         if (expectedVelocity.sqrMagnitude <= SqrSpeedLimit)
         {

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class LoopPlacementService : ILoopPlacementService
+public class LoopPlacementService : ILoopPlacementService, IOutOfScreenPlacementService
 {
     private readonly Vector2 _screenBounds;
 
@@ -41,5 +41,27 @@ public class LoopPlacementService : ILoopPlacementService
         }
 
         return position;
+    }
+
+    public Vector3 GetRandomPositionAtScreenBorder()
+    {
+        var isPoisitonAllignedWithWidth = Random.Range(0, 2) == 0;
+
+        if (isPoisitonAllignedWithWidth)
+        {
+            return new Vector3(
+                _screenBounds.x,
+                Random.Range(-_screenBounds.y, _screenBounds.y),
+                0f
+                );
+        }
+        else
+        {
+            return new Vector3(
+                Random.Range(-_screenBounds.x, _screenBounds.x),
+                -_screenBounds.y,
+                0f
+                );
+        }
     }
 }

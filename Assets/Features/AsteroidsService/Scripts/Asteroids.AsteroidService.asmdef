@@ -1,11 +1,9 @@
 {
-    "name": "Asteroids.GameSession",
+    "name": "Asteroids.AsteroidService",
     "rootNamespace": "",
     "references": [
-        "Asteroids.Infrastructure",
-        "Asteroids.Player",
-        "Asteroids.Tools",
-        "Asteroids.AsteroidService"
+        "Asteroids.Asteroids",
+        "Asteroids.Tools"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

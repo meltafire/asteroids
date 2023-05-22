@@ -1,7 +1,9 @@
 {
     "name": "Asteroids.Asteroids",
     "rootNamespace": "",
-    "references": [],
+    "references": [
+        "Asteroids.Tools"
+    ],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,

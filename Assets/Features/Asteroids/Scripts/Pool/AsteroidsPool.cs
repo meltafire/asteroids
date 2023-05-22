@@ -1,47 +1,48 @@
-﻿using UnityEngine.Pool;
-
-public class AsteroidsPool
+﻿public class AsteroidsPool : Pool<AsteroidMessaging>
 {
-    private readonly LinkedPool<AsteroidMessaging> _pool;
     private readonly AsteroidViewFactory _viewFactory;
     private readonly AsteroidType _asteroidType;
+    private readonly ILoopPlacementService _loopPlacementService;
+    private readonly IOutOfScreenPlacementService _outOfScreenPlacementService;
 
     public AsteroidsPool(
         int maxPoolSize,
         AsteroidViewFactory viewFactory,
-        AsteroidType asteroidType)
+        AsteroidType asteroidType,
+        ILoopPlacementService loopPlacementService,
+        IOutOfScreenPlacementService outOfScreenPlacementService)
+        : base (maxPoolSize)
     {
         _asteroidType = asteroidType;
         _viewFactory = viewFactory;
-
-        _pool = new LinkedPool<AsteroidMessaging>(
-        CreatePooledItem,
-        null,
-        null,
-        OnDestroyPoolObject,
-        false,
-        maxPoolSize);
+        _loopPlacementService = loopPlacementService;
+        _outOfScreenPlacementService = outOfScreenPlacementService;
     }
 
-    public AsteroidMessaging GetMessaging()
+    public override AsteroidMessaging CreateItem()
     {
-        return _pool.Get();
-    }
-
-    private AsteroidMessaging CreatePooledItem()
-    {
-        var messaging = new AsteroidMessaging(_pool);
+        var messaging = new AsteroidMessaging(this);
         var view = _viewFactory.Create(_asteroidType);
         var model = new AsteroidViewModel(view);
-        var presenter = new AsteroidPresenter(messaging, model);
+        var presenter = new AsteroidPresenter(messaging, model, _loopPlacementService, _outOfScreenPlacementService);
 
         view.Initialize(presenter);
 
         return messaging;
     }
 
-    private void OnDestroyPoolObject(AsteroidMessaging messaging)
+    public override void HandleItemGet(AsteroidMessaging item)
     {
-        messaging.RequestDestroy();
+        item.Show();
+    }
+
+    public override void HandleItemRelease(AsteroidMessaging item)
+    {
+        item.Hide();
+    }
+
+    public override void HandleItemDestroy(AsteroidMessaging item)
+    {
+        item.RequestDestroy();
     }
 }

@@ -41,7 +41,7 @@ public class PlayerPresenter : IDisposable
         HandleAcceleration();
         HandleRotation();
 
-        var expectedPosition = _loopPlacementService.AdjustPosition(position + _model.Velocity);
+        var expectedPosition = _loopPlacementService.AdjustPosition(_model.Velocity * Time.deltaTime + position);
 
         _model.Move(expectedPosition);
     }
