@@ -1,0 +1,46 @@
+{
+    "name": "BulletFireInput",
+    "maps": [
+        {
+            "name": "Bullet",
+            "id": "a421adf4-9e24-4a0a-bef7-c939edbcc763",
+            "actions": [
+                {
+                    "name": "FireBullet",
+                    "type": "Button",
+                    "id": "122666e1-8961-4d98-a4d0-683743a1643f",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "8848e980-1d91-474c-85c7-4cf54309d7e9",
+                    "path": "<Keyboard>/k",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "PC",
+                    "action": "FireBullet",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": [
+        {
+            "name": "PC",
+            "bindingGroup": "PC",
+            "devices": [
+                {
+                    "devicePath": "<Keyboard>",
+                    "isOptional": false,
+                    "isOR": false
+                }
+            ]
+        }
+    ]
+}

@@ -1,12 +1,10 @@
 {
-    "name": "Asteroids.GameSession",
+    "name": "Asteroids.BulletService",
     "rootNamespace": "",
     "references": [
-        "Asteroids.Infrastructure",
-        "Asteroids.Player",
-        "Asteroids.Tools",
-        "Asteroids.AsteroidService",
-        "Asteroids.BulletService"
+        "Unity.InputSystem",
+        "Asteroids.Bullet",
+        "Asteroids.Player"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

@@ -2,10 +2,14 @@ using UnityEngine;
 
 public class PlayerView : MonoBehaviour
 {
+    [SerializeField]
+    private Transform _shotStartTransform;
+
     private PlayerPresenter _presenter;
     private Transform _transform;
 
     public Vector3 ForwardDirection => _transform.up;
+    public Vector3 ShotStartPosition => _shotStartTransform.position;
 
     private void Update()
     {

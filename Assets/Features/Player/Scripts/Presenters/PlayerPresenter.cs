@@ -20,6 +20,7 @@ public class PlayerPresenter : IDisposable
     public void Dispose()
     {
         _playerMessaging.SpawnRequest -= OnSpawnRequested;
+        _playerMessaging.PlayerShotSpawnDataRequest -= OnPlayerShotSpawnDataRequest;
 
         _input.Disable();
     }
@@ -27,6 +28,7 @@ public class PlayerPresenter : IDisposable
     public void OnViewCreated()
     {
         _playerMessaging.SpawnRequest += OnSpawnRequested;
+        _playerMessaging.PlayerShotSpawnDataRequest += OnPlayerShotSpawnDataRequest;
     }
 
     private void OnSpawnRequested()
@@ -71,5 +73,10 @@ public class PlayerPresenter : IDisposable
         {
             _model.Accelerate();
         }
+    }
+
+    private IPlayerShotSpawnDataProvider OnPlayerShotSpawnDataRequest()
+    {
+        return _model;
     }
 }

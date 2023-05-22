@@ -3,8 +3,7 @@
     "rootNamespace": "",
     "references": [
         "Unity.InputSystem",
-        "Asteroids.Tools",
-        ""
+        "Asteroids.Tools"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
