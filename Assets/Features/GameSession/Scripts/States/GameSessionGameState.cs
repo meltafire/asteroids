@@ -23,17 +23,16 @@ public class GameSessionGameState : StateWithTask
     {
         _playerMessaging.SpawnPlayer();
 
-        _bulletService.StartService();
-
         using (var linkedTs = CancellationTokenSource.CreateLinkedTokenSource(token))
         {
-            _asteroidsService.SpawnAsteroids(linkedTs.Token);
+            var linkedToken = linkedTs.Token;
+
+            _asteroidsService.SpawnAsteroids(linkedToken);
+            _bulletService.HandleInput(linkedToken);
 
             await base.Execute(token);
 
             linkedTs.Cancel();
         }
-
-        _bulletService.StopService();
     }
 }

@@ -1,5 +1,3 @@
-using UnityEngine;
-
 public class BulletFacade
 {
     private readonly BulletPool _bulletPool;
@@ -16,8 +14,8 @@ public class BulletFacade
         _bulletPool.Prewarm();
     }
 
-    public void SpawnBullet()
+    public IBulletToPlayfieldMessaging SpawnBullet()
     {
-        _bulletPool.Get();
+        return _bulletPool.Get();
     }
 }

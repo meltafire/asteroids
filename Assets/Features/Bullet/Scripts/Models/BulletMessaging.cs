@@ -1,6 +1,6 @@
 using System;
 
-public class BulletMessaging : IBulletMessaging
+public class BulletMessaging : IBulletMessaging, IBulletToPlayfieldMessaging
 {
     private readonly Pool<BulletMessaging> _pool;
 
