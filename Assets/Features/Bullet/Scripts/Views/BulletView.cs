@@ -9,7 +9,12 @@ public class BulletView : MonoBehaviour
 
     private void Update()
     {
-        _presenter.OnUpdate();
+        _presenter.OnUpdate(_transform.position);
+    }
+
+    private void OnTriggerEnter2D(Collider2D col)
+    {
+        _presenter.OnColliderTrigger(col);
     }
 
     public void Initialize(BulletViewPresenter presenter)

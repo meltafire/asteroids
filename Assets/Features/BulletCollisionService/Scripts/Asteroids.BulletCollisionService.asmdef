@@ -1,11 +1,8 @@
 {
-    "name": "Asteroids.Bullet",
+    "name": "Asteroids.BulletCollisionService",
     "rootNamespace": "",
     "references": [
-        "Asteroids.Tools",
-        "Asteroids.Player",
-        "Asteroids.BulletCollisionService",
-        "Asteroids.Infrastructure"
+        "Asteroids.Asteroids"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

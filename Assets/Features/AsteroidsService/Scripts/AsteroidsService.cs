@@ -35,11 +35,21 @@ public class AsteroidsService : ISpawnAsteroidsService
             {
                 var asteroidMessaging = _asteroidsFacade.SpawnAsteroid(AsteroidType.Big);
 
+                asteroidMessaging.BulletCollisionReported += OnBulletCollisionReported;
+
                 _asteroidsCollection.Add(asteroidMessaging);
 
                 _activeAsteroids++;
             }
 
         }
+    }
+
+    private void OnBulletCollisionReported(IAsteroidToPlayfieldMessaging messaging)
+    {
+        messaging.BulletCollisionReported -= OnBulletCollisionReported;
+        messaging.ReturnToPool();
+
+        _activeAsteroids--;
     }
 }

@@ -7,6 +7,7 @@ public class BulletMessaging : IBulletMessaging, IBulletToPlayfieldMessaging
     public event Action ShowRequest;
     public event Action DestroyRequest;
     public event Action HideRequest;
+    public event Action<IBulletToPlayfieldMessaging> OnCollision;
 
     public BulletMessaging(Pool<BulletMessaging> pool)
     {
@@ -31,5 +32,10 @@ public class BulletMessaging : IBulletMessaging, IBulletToPlayfieldMessaging
     public void RequestDestroy()
     {
         DestroyRequest?.Invoke();
+    }
+
+    public void ReportCollision()
+    {
+        OnCollision?.Invoke(this);
     }
 }

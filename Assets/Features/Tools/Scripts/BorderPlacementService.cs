@@ -1,10 +1,10 @@
 using UnityEngine;
 
-public class LoopPlacementService : ILoopPlacementService, IOutOfScreenPlacementService
+public class BorderPlacementService : ILoopPlacementService, IOutOfScreenPlacementService, IOutOfScreenCheck
 {
     private readonly Vector2 _screenBounds;
 
-    public LoopPlacementService(Camera camera)
+    public BorderPlacementService(Camera camera)
     {
         _screenBounds = camera.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height));
     }
@@ -63,5 +63,27 @@ public class LoopPlacementService : ILoopPlacementService, IOutOfScreenPlacement
                 0f
                 );
         }
+    }
+
+    public bool IsOutOfScreen(Vector3 position)
+    {
+        if (position.x < -_screenBounds.x)
+        {
+            return true;
+        }
+        else if (position.x > _screenBounds.x)
+        {
+            return true;
+        }
+        else if (position.y < -_screenBounds.y)
+        {
+            return true;
+        }
+        else if (position.y > _screenBounds.y)
+        {
+            return true;
+        }
+
+        return false;
     }
 }

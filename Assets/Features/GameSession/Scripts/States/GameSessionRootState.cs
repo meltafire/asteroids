@@ -5,15 +5,15 @@ public class GameSessionRootState
 {
     public async Awaitable Execute(CancellationToken token)
     {
-        var loopPlacementService = new LoopPlacementService(Camera.main);
+        var borderPlacementService = new BorderPlacementService(Camera.main);
 
-        var playerFacade = new PlayerFacade(loopPlacementService);
+        var playerFacade = new PlayerFacade(borderPlacementService);
         var playerMessaging = playerFacade.Execute();
 
-        var asteroidsService = new AsteroidsService(loopPlacementService, loopPlacementService);
+        var asteroidsService = new AsteroidsService(borderPlacementService, borderPlacementService);
 
         var shotStartData = playerMessaging.GetShotSpawnData();
-        var bulletService = new BulletService(shotStartData);
+        var bulletService = new BulletService(shotStartData, borderPlacementService);
 
         while (!token.IsCancellationRequested)
         {

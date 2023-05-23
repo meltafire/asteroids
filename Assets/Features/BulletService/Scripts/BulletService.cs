@@ -5,7 +5,6 @@ using UnityEngine.InputSystem;
 public class BulletService
 {
     private const float DelaySeconds = .5f;
-    private const float LifeTime = 5f;
 
     private readonly BulletFireInput _input;
     private readonly BulletFacade _facade;
@@ -13,9 +12,9 @@ public class BulletService
     private bool _isPrewarmed;
     private bool _isFireOngoing;
 
-    public BulletService(IPlayerShotSpawnDataProvider shotSpawnDataProvider)
+    public BulletService(IPlayerShotSpawnDataProvider shotSpawnDataProvider, IOutOfScreenCheck outOfScreenCheck)
     {
-        _facade = new BulletFacade(shotSpawnDataProvider);
+        _facade = new BulletFacade(shotSpawnDataProvider, outOfScreenCheck);
         _input = new BulletFireInput();
     }
 
@@ -59,7 +58,7 @@ public class BulletService
             {
                 var bullet = _facade.SpawnBullet();
 
-                HandleBulletAutoDestroy(bullet, token);
+                HandleBulletDestroy(bullet);
 
                 await Awaitable.WaitForSecondsAsync(DelaySeconds, token);
             }
@@ -72,9 +71,14 @@ public class BulletService
 
     }
 
-    private async Awaitable HandleBulletAutoDestroy(IBulletToPlayfieldMessaging messaging, CancellationToken token)
+    private void HandleBulletDestroy(IBulletToPlayfieldMessaging messaging)
     {
-        await Awaitable.WaitForSecondsAsync(LifeTime, token);
+        messaging.OnCollision += OnCollisionHappened;
+    }
+
+    private void OnCollisionHappened(IBulletToPlayfieldMessaging messaging)
+    {
+        messaging.OnCollision -= OnCollisionHappened;
 
         messaging.ReturnToPool();
     }

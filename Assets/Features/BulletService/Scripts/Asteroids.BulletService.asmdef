@@ -4,7 +4,8 @@
     "references": [
         "Unity.InputSystem",
         "Asteroids.Bullet",
-        "Asteroids.Player"
+        "Asteroids.Player",
+        "Asteroids.Tools"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

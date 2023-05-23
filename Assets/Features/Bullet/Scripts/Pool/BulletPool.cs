@@ -1,14 +1,21 @@
-using UnityEngine;
-
 public class BulletPool : Pool<BulletMessaging>
 {
     private readonly BulletFactory _viewFactory;
     private readonly IPlayerShotSpawnDataProvider _shotSpawnDataProvider;
+    private readonly IBulletCollisionService _collisionService;
+    private readonly IOutOfScreenCheck _outOfScreenCheck;
 
-    public BulletPool(int maxItemCount, BulletFactory viewFactory, IPlayerShotSpawnDataProvider shotSpawnDataProvider) : base(maxItemCount)
+    public BulletPool(
+        int maxItemCount,
+        BulletFactory viewFactory,
+        IPlayerShotSpawnDataProvider shotSpawnDataProvider,
+        IBulletCollisionService collisionService,
+        IOutOfScreenCheck outOfScreenCheck) : base(maxItemCount)
     {
         _viewFactory = viewFactory;
         _shotSpawnDataProvider = shotSpawnDataProvider;
+        _collisionService = collisionService;
+        _outOfScreenCheck = outOfScreenCheck;
     }
 
     public override BulletMessaging CreateItem()
@@ -16,7 +23,7 @@ public class BulletPool : Pool<BulletMessaging>
         var messaging = new BulletMessaging(this);
         var view = _viewFactory.Create();
         var model = new BulletViewModel(view);
-        var presenter = new BulletViewPresenter(messaging, model, _shotSpawnDataProvider);
+        var presenter = new BulletViewPresenter(messaging, model, _shotSpawnDataProvider, _collisionService, _outOfScreenCheck);
 
         view.Initialize(presenter);
 

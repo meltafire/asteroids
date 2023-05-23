@@ -7,6 +7,7 @@ public class AsteroidMessaging : IAsteroidToPlayfieldMessaging, IAsteroidMessagi
     public event Action ShowRequest;
     public event Action DestroyRequest;
     public event Action HideRequest;
+    public event Action<IAsteroidToPlayfieldMessaging> BulletCollisionReported;
 
     public AsteroidMessaging(Pool<AsteroidMessaging> pool)
     {
@@ -31,5 +32,10 @@ public class AsteroidMessaging : IAsteroidToPlayfieldMessaging, IAsteroidMessagi
     public void RequestDestroy()
     {
         DestroyRequest?.Invoke();
+    }
+
+    public void ReportBulletCollision()
+    {
+        BulletCollisionReported?.Invoke(this);
     }
 }

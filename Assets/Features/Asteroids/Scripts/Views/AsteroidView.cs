@@ -14,6 +14,11 @@ public class AsteroidView : MonoBehaviour
         _presenter.OnViewCreated();
     }
 
+    public void HandleBulletCollision()
+    {
+        _presenter.OnBulletCollision();
+    }
+
     public void HandleDestroy()
     {
         Destroy(gameObject);

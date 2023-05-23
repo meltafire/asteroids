@@ -41,6 +41,11 @@ public class AsteroidPresenter : IDisposable
         _model.Move(expectedPosition);
     }
 
+    public void OnBulletCollision()
+    {
+        _messaging.ReportBulletCollision();
+    }
+
     private void OnDestroyRequested()
     {
         _model.HandleDestroy();
