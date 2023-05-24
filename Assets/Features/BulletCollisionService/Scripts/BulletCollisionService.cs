@@ -8,7 +8,7 @@ public class BulletCollisionService : IBulletCollisionService
     {
         if(col.gameObject.tag == AsteroidTag)
         {
-            var view = col.GetComponent<AsteroidTrigerView>();
+            var view = col.GetComponent<TriggerView>();
 
             view.HandleBulletCollision();
 

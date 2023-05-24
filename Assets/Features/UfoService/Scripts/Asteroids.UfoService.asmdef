@@ -1,7 +1,11 @@
 {
-    "name": "Asteroids.BulletCollisionService",
+    "name": "Asteroids.UfoService",
     "rootNamespace": "",
-    "references": [],
+    "references": [
+        "Asteroids.Ufo",
+        "Asteroids.Tools",
+        "Asteroids.Player"
+    ],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,

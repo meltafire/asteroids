@@ -2,11 +2,11 @@ using UnityEngine;
 
 public class LaserViewFactory
 {
-    private const string PlayerAdress = "Laser/Laser";
+    private const string LaserAdress = "Laser/Laser";
 
     public LaserView Create(Transform parentTransform)
     {
-        var gameObject = Resources.Load<GameObject>(PlayerAdress);
+        var gameObject = Resources.Load<GameObject>(LaserAdress);
 
         var spawnedGameObject = GameObject.Instantiate(gameObject, parentTransform);
         spawnedGameObject.SetActive(false);

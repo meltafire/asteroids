@@ -3,7 +3,8 @@
     "rootNamespace": "",
     "references": [
         "Asteroids.Tools",
-        "Asteroids.Infrastructure"
+        "Asteroids.Infrastructure",
+        "Asteroids.BulletCollisionService"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

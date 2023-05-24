@@ -45,6 +45,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77e1a82e2d5eb3f4a84386c99fee04bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _triggerView: {fileID: 2367761686400524305}
 --- !u!1 &6227907563113761771
 GameObject:
   m_ObjectHideFlags: 0
@@ -56,7 +57,7 @@ GameObject:
   - component: {fileID: 5562677541586066192}
   - component: {fileID: 3144765110228356557}
   - component: {fileID: 4675826467078623598}
-  - component: {fileID: 5039273040440296845}
+  - component: {fileID: 2367761686400524305}
   m_Layer: 0
   m_Name: Art
   m_TagString: Asteroid
@@ -182,7 +183,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &5039273040440296845
+--- !u!114 &2367761686400524305
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -194,4 +195,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: daac97dc3e70ab14f8fcb558a9390398, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _asteroidView: {fileID: 1620347107559324415}

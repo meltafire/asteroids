@@ -18,11 +18,13 @@ public class GameSessionRootState
         var laserService = new LaserService();
         laserService.SpawnLaser(playerMessaging.GetShotSpawnData().ShotStartTransform, bulletCollisionService);
 
+        var ufoService = new UfoService(borderPlacementService, playerMessaging);
+
         while (!token.IsCancellationRequested)
         {
             var gameSessionAndPlayerMessaging = new GameSessionAndPlayerMessaging();
 
-            var stateMachine = new GameSessionStateMachine(playerMessaging, asteroidsService, bulletService, laserService, gameSessionAndPlayerMessaging);
+            var stateMachine = new GameSessionStateMachine(playerMessaging, asteroidsService, bulletService, laserService, ufoService, gameSessionAndPlayerMessaging);
 
             await stateMachine.GoThroughStates(token);
         }

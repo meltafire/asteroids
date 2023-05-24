@@ -1,35 +1,24 @@
-using System;
 using UnityEngine;
 
-public class AsteroidView : MonoBehaviour
+public class UfoView : MonoBehaviour
 {
     [SerializeField]
     private TriggerView _triggerView;
 
-    private AsteroidPresenter _presenter;
+    private UfoViewPresenter _presenter;
     private Transform _transform;
 
     public Vector3 Position => _transform.position;
 
-    public void Initialize(AsteroidPresenter presenter)
+    public void Initialize(UfoViewPresenter presenter)
     {
         _presenter = presenter;
 
-        _transform = gameObject.transform;
+        _transform = transform;
 
         _triggerView.TriggerHappened += OnTriggerHappened;
 
         _presenter.OnViewCreated();
-    }
-
-    public void HandleDestroy()
-    {
-        Destroy(gameObject);
-    }
-
-    public void SetActive(bool isActive)
-    {
-        gameObject.SetActive(isActive);
     }
 
     public void Move(Vector3 position)
@@ -37,9 +26,14 @@ public class AsteroidView : MonoBehaviour
         _transform.position = position;
     }
 
+    public void SetActive(bool isActive)
+    {
+        gameObject.SetActive(isActive);
+    }
+
     private void Update()
     {
-        _presenter.OnUpdate(_transform.position);
+        _presenter.OnUpdate();
     }
 
     private void OnDestroy()
