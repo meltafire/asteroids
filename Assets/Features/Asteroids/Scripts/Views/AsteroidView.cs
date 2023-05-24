@@ -5,6 +5,8 @@ public class AsteroidView : MonoBehaviour
     private AsteroidPresenter _presenter;
     private Transform _transform;
 
+    public Vector3 Position => _transform.position;
+
     public void Initialize(AsteroidPresenter presenter)
     {
         _presenter = presenter;

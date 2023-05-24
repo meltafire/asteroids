@@ -4,18 +4,20 @@ using UnityEngine;
 
 public class AsteroidsService : ISpawnAsteroidsService
 {
-    private const int AsteroidLimit = 5;
+    private const int SmallAsteroidPerBigAsteroidLimit = 3;
+    private const int BigAsteroidLimit = 5;
     private const float DelayBetweenSpawn = 2f;
 
-    private readonly List<IAsteroidToPlayfieldMessaging> _asteroidsCollection;
     private readonly AsteroidsFacade _asteroidsFacade;
+    private readonly IOutOfScreenPlacementService _outOfScreenPlacementService;
 
-    private int _activeAsteroids;
+    private int _bigActiveAsteroids;
 
     public AsteroidsService(ILoopPlacementService loopPlacementService, IOutOfScreenPlacementService outOfScreenPlacementService)
     {
-        _asteroidsCollection = new List<IAsteroidToPlayfieldMessaging>();
-        _asteroidsFacade = new AsteroidsFacade(loopPlacementService, outOfScreenPlacementService);
+        _outOfScreenPlacementService = outOfScreenPlacementService;
+
+        _asteroidsFacade = new AsteroidsFacade(loopPlacementService);
     }
 
     public async Awaitable SpawnAsteroids(CancellationToken token)
@@ -31,15 +33,14 @@ public class AsteroidsService : ISpawnAsteroidsService
                 return;
             }
 
-            if(_activeAsteroids < AsteroidLimit)
+            if (_bigActiveAsteroids < BigAsteroidLimit)
             {
                 var asteroidMessaging = _asteroidsFacade.SpawnAsteroid(AsteroidType.Big);
 
+                asteroidMessaging.Show(_outOfScreenPlacementService.GetRandomPositionAtScreenBorder());
                 asteroidMessaging.BulletCollisionReported += OnBulletCollisionReported;
 
-                _asteroidsCollection.Add(asteroidMessaging);
-
-                _activeAsteroids++;
+                _bigActiveAsteroids++;
             }
 
         }
@@ -47,9 +48,25 @@ public class AsteroidsService : ISpawnAsteroidsService
 
     private void OnBulletCollisionReported(IAsteroidToPlayfieldMessaging messaging)
     {
+        if (messaging.AsteroidType == AsteroidType.Big)
+        {
+            SpawnSmallAsteroid(messaging);
+
+            _bigActiveAsteroids--;
+        }
+
         messaging.BulletCollisionReported -= OnBulletCollisionReported;
         messaging.ReturnToPool();
+    }
 
-        _activeAsteroids--;
+    private void SpawnSmallAsteroid(IAsteroidToPlayfieldMessaging messaging)
+    {
+        for (int i = 0; i < SmallAsteroidPerBigAsteroidLimit; i++)
+        {
+            var asteroidMessaging = _asteroidsFacade.SpawnAsteroid(AsteroidType.Small);
+
+            asteroidMessaging.Show(messaging.GetPosition());
+            asteroidMessaging.BulletCollisionReported += OnBulletCollisionReported;
+        }
     }
 }

@@ -3,12 +3,12 @@
     private readonly AsteroidsPool _smallAsteroidsPool;
     private readonly AsteroidsPool _bigAsteroidsPool;
 
-    public AsteroidsFacade(ILoopPlacementService loopPlacementService, IOutOfScreenPlacementService outOfScreenPlacementService)
+    public AsteroidsFacade(ILoopPlacementService loopPlacementService)
     {
         var factory = new AsteroidViewFactory();
 
-        _smallAsteroidsPool = new AsteroidsPool(20, factory, AsteroidType.Small, loopPlacementService, outOfScreenPlacementService);
-        _bigAsteroidsPool = new AsteroidsPool(20, factory, AsteroidType.Big, loopPlacementService, outOfScreenPlacementService);
+        _smallAsteroidsPool = new AsteroidsPool(20, factory, AsteroidType.Small, loopPlacementService);
+        _bigAsteroidsPool = new AsteroidsPool(20, factory, AsteroidType.Big, loopPlacementService);
     }
 
     public void Prewarm()

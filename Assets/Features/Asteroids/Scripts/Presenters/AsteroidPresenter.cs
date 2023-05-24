@@ -6,18 +6,15 @@ public class AsteroidPresenter : IDisposable
     private readonly IAsteroidMessaging _messaging;
     private readonly AsteroidViewModel _model;
     private readonly ILoopPlacementService _loopPlacementService;
-    private readonly IOutOfScreenPlacementService _outOfScreenPlacementService;
 
     public AsteroidPresenter(
         IAsteroidMessaging messaging,
         AsteroidViewModel model,
-        ILoopPlacementService loopPlacementService,
-        IOutOfScreenPlacementService outOfScreenPlacementService)
+        ILoopPlacementService loopPlacementService)
     {
         _messaging = messaging;
         _model = model;
         _loopPlacementService = loopPlacementService;
-        _outOfScreenPlacementService = outOfScreenPlacementService;
     }
 
     public void OnViewCreated()
@@ -25,6 +22,7 @@ public class AsteroidPresenter : IDisposable
         _messaging.ShowRequest += OnShowRequested;
         _messaging.HideRequest += OnHideRequested;
         _messaging.DestroyRequest += OnDestroyRequested;
+        _messaging.PositionRequest += OnPositionRequested;
     }
 
     public void Dispose()
@@ -32,6 +30,7 @@ public class AsteroidPresenter : IDisposable
         _messaging.ShowRequest -= OnShowRequested;
         _messaging.HideRequest -= OnHideRequested;
         _messaging.DestroyRequest -= OnDestroyRequested;
+        _messaging.PositionRequest -= OnPositionRequested;
     }
 
     public void OnUpdate(Vector3 position)
@@ -51,15 +50,18 @@ public class AsteroidPresenter : IDisposable
         _model.HandleDestroy();
     }
 
-    private void OnShowRequested()
+    private void OnShowRequested(Vector3 position)
     {
-        var position = _outOfScreenPlacementService.GetRandomPositionAtScreenBorder();
-
         _model.HandleShow(position);
     }
 
     private void OnHideRequested()
     {
         _model.HandleHide();
+    }
+
+    private Vector3 OnPositionRequested()
+    {
+        return _model.Position;
     }
 }

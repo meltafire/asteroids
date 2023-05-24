@@ -9,6 +9,7 @@ public class AsteroidViewModel
     private Vector3 _velocity = Vector3.zero;
 
     public Vector3 Velocity => _velocity;
+    public Vector3 Position => _view.Position;
 
     public AsteroidViewModel(AsteroidView view)
     {
