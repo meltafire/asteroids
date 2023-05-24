@@ -11,6 +11,8 @@ public class BulletService
 
     private bool _isPrewarmed;
     private bool _isFireOngoing;
+    private bool _isCooldownOver = true;
+    private CancellationTokenSource _cts;
 
     public BulletService(IPlayerShotSpawnDataProvider shotSpawnDataProvider, IOutOfScreenCheck outOfScreenCheck)
     {
@@ -18,8 +20,10 @@ public class BulletService
         _input = new BulletFireInput();
     }
 
-    public async Awaitable HandleInput(CancellationToken token)
+    public void StartHandleInput()
     {
+        _cts = new CancellationTokenSource();
+
         if (!_isPrewarmed)
         {
             _facade.Prewarm();
@@ -31,8 +35,14 @@ public class BulletService
 
         _input.Bullet.FireBullet.started += OnFireBulletStarted;
         _input.Bullet.FireBullet.canceled += OnFireBulletPerformed;
+    }
 
-        await TryFire(token);
+    public void StopHandleInput()
+    {
+        _cts.Cancel();
+
+        _isCooldownOver = true;
+        _isFireOngoing = false;
 
         _input.Bullet.FireBullet.started -= OnFireBulletStarted;
         _input.Bullet.FireBullet.canceled -= OnFireBulletPerformed;
@@ -42,7 +52,12 @@ public class BulletService
 
     private void OnFireBulletStarted(InputAction.CallbackContext context)
     {
-        _isFireOngoing = true;
+        if(!_isFireOngoing)
+        {
+            _isFireOngoing = true;
+
+            TryFire(_cts.Token);
+        }
     }
 
     private void OnFireBulletPerformed(InputAction.CallbackContext context)
@@ -52,19 +67,22 @@ public class BulletService
 
     private async Awaitable TryFire(CancellationToken token)
     {
-        while (!token.IsCancellationRequested)
+        if (_isCooldownOver)
         {
-            if (_isFireOngoing)
+            while (_isFireOngoing && !token.IsCancellationRequested)
             {
-                var bullet = _facade.SpawnBullet();
+                _isCooldownOver = false;
 
-                HandleBulletDestroy(bullet);
+                if (_isFireOngoing)
+                {
+                    var bullet = _facade.SpawnBullet();
 
-                await Awaitable.WaitForSecondsAsync(DelaySeconds, token);
-            }
-            else
-            {
-                await Awaitable.NextFrameAsync(token);
+                    HandleBulletDestroy(bullet);
+
+                    await Awaitable.WaitForSecondsAsync(DelaySeconds, token);
+                }
+
+                _isCooldownOver = true;
             }
 
         }

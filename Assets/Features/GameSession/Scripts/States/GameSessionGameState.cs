@@ -28,11 +28,14 @@ public class GameSessionGameState : StateWithTask
             var linkedToken = linkedTs.Token;
 
             _asteroidsService.SpawnAsteroids(linkedToken);
-            _bulletService.HandleInput(linkedToken);
+
+            _bulletService.StartHandleInput();
 
             await base.Execute(token);
 
             linkedTs.Cancel();
+
+            _bulletService.StopHandleInput();
         }
     }
 }
