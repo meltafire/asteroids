@@ -5,7 +5,8 @@
         "Unity.InputSystem",
         "Asteroids.Bullet",
         "Asteroids.Player",
-        "Asteroids.Tools"
+        "Asteroids.Tools",
+        "Asteroids.BulletCollisionService"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

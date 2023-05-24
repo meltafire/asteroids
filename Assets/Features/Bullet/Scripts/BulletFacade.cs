@@ -2,12 +2,11 @@ public class BulletFacade
 {
     private readonly BulletPool _bulletPool;
 
-    public BulletFacade(IPlayerShotSpawnDataProvider shotSpawnDataProvider, IOutOfScreenCheck outOfScreenCheck)
+    public BulletFacade(IPlayerShotSpawnDataProvider shotSpawnDataProvider, IOutOfScreenCheck outOfScreenCheck, IBulletCollisionService bulletCollisionService)
     {
         var factory = new BulletFactory();
-        var collisionService = new BulletCollisionService();
 
-        _bulletPool = new BulletPool(20, factory, shotSpawnDataProvider, collisionService, outOfScreenCheck);
+        _bulletPool = new BulletPool(20, factory, shotSpawnDataProvider, bulletCollisionService, outOfScreenCheck);
     }
 
     public void Prewarm()

@@ -14,9 +14,9 @@ public class BulletService
     private bool _isCooldownOver = true;
     private CancellationTokenSource _cts;
 
-    public BulletService(IPlayerShotSpawnDataProvider shotSpawnDataProvider, IOutOfScreenCheck outOfScreenCheck)
+    public BulletService(IPlayerShotSpawnDataProvider shotSpawnDataProvider, IOutOfScreenCheck outOfScreenCheck, IBulletCollisionService bulletCollisionService)
     {
-        _facade = new BulletFacade(shotSpawnDataProvider, outOfScreenCheck);
+        _facade = new BulletFacade(shotSpawnDataProvider, outOfScreenCheck, bulletCollisionService);
         _input = new BulletFireInput();
     }
 

@@ -1,13 +1,9 @@
 {
-    "name": "Asteroids.GameSession",
+    "name": "Asteroids.LaserService",
     "rootNamespace": "",
     "references": [
-        "Asteroids.Infrastructure",
-        "Asteroids.Player",
-        "Asteroids.Tools",
-        "Asteroids.AsteroidService",
-        "Asteroids.BulletService",
-        "Asteroids.LaserService",
+        "Asteroids.Laser",
+        "Unity.InputSystem",
         "Asteroids.BulletCollisionService"
     ],
     "includePlatforms": [],

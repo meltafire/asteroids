@@ -13,6 +13,8 @@ public class PlayerViewModel : IPlayerShotSpawnDataProvider
     public Vector3 ShotStartPosition => _playerView.ShotStartPosition;
     public Vector3 Direction => _playerView.ForwardDirection;
 
+    public Transform ShotStartTransform => _playerView.ShotStartTransform;
+
     public PlayerViewModel(PlayerView playerView)
     {
         _playerView = playerView;

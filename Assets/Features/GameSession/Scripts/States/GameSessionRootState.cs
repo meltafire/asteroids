@@ -12,14 +12,17 @@ public class GameSessionRootState
 
         var asteroidsService = new AsteroidsService(borderPlacementService, borderPlacementService);
 
+        var bulletCollisionService = new BulletCollisionService();
         var shotStartData = playerMessaging.GetShotSpawnData();
-        var bulletService = new BulletService(shotStartData, borderPlacementService);
+        var bulletService = new BulletService(shotStartData, borderPlacementService, bulletCollisionService);
+        var laserService = new LaserService();
+        laserService.SpawnLaser(playerMessaging.GetShotSpawnData().ShotStartTransform, bulletCollisionService);
 
         while (!token.IsCancellationRequested)
         {
             var gameSessionAndPlayerMessaging = new GameSessionAndPlayerMessaging();
 
-            var stateMachine = new GameSessionStateMachine(playerMessaging, asteroidsService, bulletService, gameSessionAndPlayerMessaging);
+            var stateMachine = new GameSessionStateMachine(playerMessaging, asteroidsService, bulletService, laserService, gameSessionAndPlayerMessaging);
 
             await stateMachine.GoThroughStates(token);
         }

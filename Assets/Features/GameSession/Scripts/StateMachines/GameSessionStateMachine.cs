@@ -4,10 +4,11 @@ public class GameSessionStateMachine : StateMachine
         IPlayerToPlayfieldMessaging playerMessaging,
         ISpawnAsteroidsService asteroidsService,
         BulletService bulletService,
+        LaserService laserService,
         IStateWithTaskConditionProvider conditionProvider)
         : base()
     {
-        _statesQueue.Enqueue(new GameSessionGameState(playerMessaging, asteroidsService, bulletService, conditionProvider));
+        _statesQueue.Enqueue(new GameSessionGameState(playerMessaging, asteroidsService, bulletService, laserService, conditionProvider));
         _statesQueue.Enqueue(new GameSessionGameOverState());
         _statesQueue.Enqueue(new GameSessionCleanUpState());
     }
