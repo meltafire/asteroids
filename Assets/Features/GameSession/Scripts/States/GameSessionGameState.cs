@@ -5,17 +5,17 @@ public class GameSessionGameState : StateWithTask
 {
     private readonly IPlayerToPlayfieldMessaging _playerMessaging;
     private readonly ISpawnAsteroidsService _asteroidsService;
-    private readonly BulletService _bulletService;
+    private readonly IBulletService _bulletService;
     private readonly LaserService _laserService;
-    private readonly UfoService _ufoService;
+    private readonly IUfoSpawnService _ufoService;
     private readonly GameSessionMessaging _gameMessaging;
 
     public GameSessionGameState(
         IPlayerToPlayfieldMessaging playerMessaging,
         ISpawnAsteroidsService asteroidsService,
-        BulletService bulletService,
+        IBulletService bulletService,
         LaserService laserService,
-        UfoService ufoService,
+        IUfoSpawnService ufoService,
         GameSessionMessaging gameMessaging)
         : base(gameMessaging)
     {

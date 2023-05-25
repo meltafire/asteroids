@@ -1,15 +1,16 @@
 using System.Threading;
 using UnityEngine;
 
-public class UfoService
+public class UfoService : IUfoSpawnService, IUfoDespawnService
 {
-    private readonly IPlayerToPlayfieldMessaging _playerMessaging;
-
     private const float UfoSpawnDelay = 1f;
 
+    private readonly IPlayerToPlayfieldMessaging _playerMessaging;
     private readonly IOutOfScreenPlacementService _outOfScreenPlacementService;
 
     private bool _isUfoSpawned;
+
+    private IUfoToPlayfieldMessaging _ufo;
 
     public UfoService(IOutOfScreenPlacementService outOfScreenPlacementService, IPlayerToPlayfieldMessaging playerMessaging)
     {
@@ -37,6 +38,14 @@ public class UfoService
 
     }
 
+    public void DespawnAll()
+    {
+        if(_ufo != null)
+        {
+            _ufo.Hide();
+        }
+    }
+
     private void TrySpawn(IUfoToPlayfieldMessaging ufo)
     {
         if (!_isUfoSpawned)
@@ -46,6 +55,8 @@ public class UfoService
             var position = _outOfScreenPlacementService.GetRandomPositionAtScreenBorder();
 
             ufo.Show(position);
+
+            _ufo = ufo;
 
             ufo.CollisionEvent += OnCollisionEvent;
         }
@@ -58,5 +69,7 @@ public class UfoService
         ufo.CollisionEvent -= OnCollisionEvent;
 
         ufo.Hide();
+
+        _ufo = null;
     }
 }

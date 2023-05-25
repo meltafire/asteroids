@@ -35,8 +35,11 @@ public class GameSessionRootState
             var stateMachine = new GameSessionStateMachine(
                 playerMessaging,
                 asteroidsService,
+                asteroidsService,
+                bulletService,
                 bulletService,
                 laserService,
+                ufoService,
                 ufoService,
                 gameSessionMessaging,
                 _canvasTransfrom);

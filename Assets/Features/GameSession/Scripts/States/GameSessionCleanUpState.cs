@@ -3,10 +3,23 @@ using UnityEngine;
 
 public class GameSessionCleanUpState : IState
 {
+    private readonly IDespawnAsteroidsService _asteroidsService;
+    private readonly IUfoDespawnService _ufoDespawnService;
+    private readonly IBulletDespawnService _bulletDespawnService;
+
+    public GameSessionCleanUpState(IDespawnAsteroidsService asteroidsService, IUfoDespawnService ufoDespawnService, IBulletDespawnService bulletDespawnService)
+    {
+        _asteroidsService = asteroidsService;
+        _ufoDespawnService = ufoDespawnService;
+        _bulletDespawnService = bulletDespawnService;
+    }
+
     public Awaitable Execute(CancellationToken token)
     {
-        Debug.Log("clean up");
+        _asteroidsService.DespawnAll();
+        _ufoDespawnService.DespawnAll();
+        _bulletDespawnService.DespawnAll();
 
-        throw new System.NotImplementedException();
+        return Awaitable.EndOfFrameAsync();
     }
 }

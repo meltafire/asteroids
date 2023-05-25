@@ -5,15 +5,18 @@ public class GameSessionStateMachine : StateMachine
     public GameSessionStateMachine(
         IPlayerToPlayfieldMessaging playerMessaging,
         ISpawnAsteroidsService asteroidsService,
-        BulletService bulletService,
+        IDespawnAsteroidsService despawnAsteroidsService,
+        IBulletService bulletService,
+        IBulletDespawnService bulletDespawnService,
         LaserService laserService,
-        UfoService ufoService,
+        IUfoSpawnService ufoService,
+        IUfoDespawnService ufoDespawnService,
         GameSessionMessaging messaging,
         RectTransform canvasTransfrom)
         : base()
     {
         _statesQueue.Enqueue(new GameSessionGameState(playerMessaging, asteroidsService, bulletService, laserService, ufoService, messaging));
         _statesQueue.Enqueue(new GameSessionGameOverState(canvasTransfrom));
-        _statesQueue.Enqueue(new GameSessionCleanUpState());
+        _statesQueue.Enqueue(new GameSessionCleanUpState(despawnAsteroidsService, ufoDespawnService, bulletDespawnService));
     }
 }

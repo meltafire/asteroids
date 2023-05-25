@@ -1,9 +1,11 @@
+using System.Collections.Generic;
 using System.Threading;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class BulletService
+public class BulletService : IBulletService, IBulletDespawnService
 {
+    private const int InitalCacheSize = 20;
     private const float DelaySeconds = .5f;
 
     private readonly BulletFireInput _input;
@@ -13,10 +15,11 @@ public class BulletService
     private bool _isFireOngoing;
     private bool _isCooldownOver = true;
     private CancellationTokenSource _cts;
+    private List<IBulletToPlayfieldMessaging> _bulletCache = new List<IBulletToPlayfieldMessaging>(InitalCacheSize);
 
     public BulletService(IPlayerShotSpawnDataProvider shotSpawnDataProvider, IOutOfScreenCheck outOfScreenCheck, ICollisionService collisionService)
     {
-        _facade = new BulletFacade(shotSpawnDataProvider, outOfScreenCheck, collisionService);
+        _facade = new BulletFacade(InitalCacheSize, shotSpawnDataProvider, outOfScreenCheck, collisionService);
         _input = new BulletFireInput();
     }
 
@@ -50,6 +53,16 @@ public class BulletService
         _input.Disable();
     }
 
+    public void DespawnAll()
+    {
+        foreach (var item in _bulletCache)
+        {
+            item.ReturnToPool();
+        }
+
+        _bulletCache.Clear();
+    }
+
     private void OnFireBulletStarted(InputAction.CallbackContext context)
     {
         if(!_isFireOngoing)
@@ -77,6 +90,8 @@ public class BulletService
                 {
                     var bullet = _facade.SpawnBullet();
 
+                    _bulletCache.Add(bullet);
+
                     HandleBulletDestroy(bullet);
 
                     await Awaitable.WaitForSecondsAsync(DelaySeconds, token);
@@ -96,6 +111,8 @@ public class BulletService
 
     private void OnCollisionHappened(IBulletToPlayfieldMessaging messaging)
     {
+        _bulletCache.Remove(messaging);
+
         messaging.OnCollision -= OnCollisionHappened;
 
         messaging.ReturnToPool();

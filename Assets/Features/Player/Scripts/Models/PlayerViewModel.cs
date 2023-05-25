@@ -7,7 +7,7 @@ public class PlayerViewModel : IPlayerShotSpawnDataProvider
 
     private readonly PlayerView _playerView;
 
-    private Vector3 _velocity = Vector3.zero;
+    private Vector3 _velocity;
 
     public Vector3 Velocity => _velocity;
     public Vector3 ShotStartPosition => _playerView.ShotStartPosition;
@@ -22,6 +22,10 @@ public class PlayerViewModel : IPlayerShotSpawnDataProvider
 
     public void Show()
     {
+        _velocity = Vector3.zero;
+
+        _playerView.Move(Vector3.zero);
+
         _playerView.SetActive(true);
     }
     
