@@ -6,10 +6,10 @@ public class GameSessionStateMachine : StateMachine
         BulletService bulletService,
         LaserService laserService,
         UfoService ufoService,
-        IStateWithTaskConditionProvider conditionProvider)
+        GameSessionMessaging messaging)
         : base()
     {
-        _statesQueue.Enqueue(new GameSessionGameState(playerMessaging, asteroidsService, bulletService, laserService, ufoService, conditionProvider));
+        _statesQueue.Enqueue(new GameSessionGameState(playerMessaging, asteroidsService, bulletService, laserService, ufoService, messaging));
         _statesQueue.Enqueue(new GameSessionGameOverState());
         _statesQueue.Enqueue(new GameSessionCleanUpState());
     }

@@ -2,7 +2,7 @@ public class BulletFacade
 {
     private readonly BulletPool _bulletPool;
 
-    public BulletFacade(IPlayerShotSpawnDataProvider shotSpawnDataProvider, IOutOfScreenCheck outOfScreenCheck, IBulletCollisionService bulletCollisionService)
+    public BulletFacade(IPlayerShotSpawnDataProvider shotSpawnDataProvider, IOutOfScreenCheck outOfScreenCheck, ICollisionService bulletCollisionService)
     {
         var factory = new BulletFactory();
 

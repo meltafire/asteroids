@@ -4,7 +4,7 @@ using UnityEngine;
 public class AsteroidView : MonoBehaviour
 {
     [SerializeField]
-    private TriggerView _triggerView;
+    private CollisionTriggerView _triggerView;
 
     private AsteroidPresenter _presenter;
     private Transform _transform;

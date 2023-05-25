@@ -2,16 +2,28 @@
 
 public class PlayerMessaging : IPlayerMessaging, IPlayerToPlayfieldMessaging
 {
-    public event Action SpawnRequest;
+    public event Action ShowRequest;
+    public event Action HideRequest;
     public event Func<IPlayerShotSpawnDataProvider> PlayerShotSpawnDataRequest;
+    public event Action CollisionHappened;
 
     public IPlayerShotSpawnDataProvider GetShotSpawnData()
     {
         return PlayerShotSpawnDataRequest?.Invoke();
     }
 
-    public void SpawnPlayer()
+    public void ReportCollision()
     {
-        SpawnRequest?.Invoke();
+        CollisionHappened?.Invoke();
+    }
+
+    public void Show()
+    {
+        ShowRequest?.Invoke();
+    }
+
+    public void Hide()
+    {
+        HideRequest?.Invoke();
     }
 }

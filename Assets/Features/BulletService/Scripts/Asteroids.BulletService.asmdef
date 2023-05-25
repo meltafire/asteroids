@@ -6,7 +6,7 @@
         "Asteroids.Bullet",
         "Asteroids.Player",
         "Asteroids.Tools",
-        "Asteroids.BulletCollisionService"
+        "Asteroids.CollisionService"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

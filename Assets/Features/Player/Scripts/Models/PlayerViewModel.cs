@@ -20,9 +20,14 @@ public class PlayerViewModel : IPlayerShotSpawnDataProvider
         _playerView = playerView;
     }
 
-    public void SpawnPlayer()
+    public void Show()
     {
-        _playerView.Spawn();
+        _playerView.SetActive(true);
+    }
+    
+    public void Hide()
+    {
+        _playerView.SetActive(false);
     }
 
     public void TurnLeft()

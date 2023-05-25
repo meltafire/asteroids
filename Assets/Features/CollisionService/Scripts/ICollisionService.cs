@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public interface IBulletCollisionService
+public interface ICollisionService
 {
     bool HandleCollision(Collider2D col);
 }

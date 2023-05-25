@@ -2,14 +2,14 @@ public class BulletPool : Pool<BulletMessaging>
 {
     private readonly BulletFactory _viewFactory;
     private readonly IPlayerShotSpawnDataProvider _shotSpawnDataProvider;
-    private readonly IBulletCollisionService _collisionService;
+    private readonly ICollisionService _collisionService;
     private readonly IOutOfScreenCheck _outOfScreenCheck;
 
     public BulletPool(
         int maxItemCount,
         BulletFactory viewFactory,
         IPlayerShotSpawnDataProvider shotSpawnDataProvider,
-        IBulletCollisionService collisionService,
+        ICollisionService collisionService,
         IOutOfScreenCheck outOfScreenCheck) : base(maxItemCount)
     {
         _viewFactory = viewFactory;

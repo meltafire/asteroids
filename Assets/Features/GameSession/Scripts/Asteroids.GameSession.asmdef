@@ -8,7 +8,7 @@
         "Asteroids.AsteroidService",
         "Asteroids.BulletService",
         "Asteroids.LaserService",
-        "Asteroids.BulletCollisionService",
+        "Asteroids.CollisionService",
         "Asteroids.UfoService"
     ],
     "includePlatforms": [],

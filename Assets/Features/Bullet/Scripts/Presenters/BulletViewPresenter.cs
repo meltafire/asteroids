@@ -6,14 +6,14 @@ public class BulletViewPresenter : IDisposable
     private readonly BulletViewModel _model;
     private readonly IBulletMessaging _messaging;
     private readonly IPlayerShotSpawnDataProvider _shotSpawnDataProvider;
-    private readonly IBulletCollisionService _collisionService;
+    private readonly ICollisionService _collisionService;
     private readonly IOutOfScreenCheck _outOfScreenCheck;
 
     public BulletViewPresenter(
         IBulletMessaging messaging,
         BulletViewModel model,
         IPlayerShotSpawnDataProvider shotSpawnDataProvider,
-        IBulletCollisionService collisionService,
+        ICollisionService collisionService,
         IOutOfScreenCheck outOfScreenCheck)
     {
         _model = model;

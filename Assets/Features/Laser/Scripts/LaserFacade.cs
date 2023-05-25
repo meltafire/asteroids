@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class LaserFacade
 {
-    public ILaserToPlayfieldMessaging SpawnLaser(Transform parentTransform, IBulletCollisionService collisionService)
+    public ILaserToPlayfieldMessaging SpawnLaser(Transform parentTransform, ICollisionService collisionService)
     {
         var messaging = new LaserMessaging();
 

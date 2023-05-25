@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-public class TriggerView : MonoBehaviour
+public class CollisionTriggerView : MonoBehaviour
 {
     public event Action TriggerHappened;
 

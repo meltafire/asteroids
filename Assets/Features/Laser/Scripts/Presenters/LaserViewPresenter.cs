@@ -5,9 +5,9 @@ public class LaserViewPresenter : IDisposable
 {
     private readonly LaserViewModel _model;
     private readonly ILaserMessaging _messaging;
-    private readonly IBulletCollisionService _collisionService;
+    private readonly ICollisionService _collisionService;
 
-    public LaserViewPresenter(LaserViewModel model, ILaserMessaging messaging, IBulletCollisionService collisionService)
+    public LaserViewPresenter(LaserViewModel model, ILaserMessaging messaging, ICollisionService collisionService)
     {
         _model = model;
         _messaging = messaging;

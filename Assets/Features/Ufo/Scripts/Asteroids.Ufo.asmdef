@@ -2,7 +2,7 @@
     "name": "Asteroids.Ufo",
     "rootNamespace": "",
     "references": [
-        "Asteroids.BulletCollisionService",
+        "Asteroids.CollisionService",
         "Asteroids.Player"
     ],
     "includePlatforms": [],

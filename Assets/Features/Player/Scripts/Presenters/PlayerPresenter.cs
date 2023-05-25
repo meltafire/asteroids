@@ -7,19 +7,22 @@ public class PlayerPresenter : IDisposable
     private readonly ILoopPlacementService _loopPlacementService;
     private readonly PlayerViewModel _model;
     private readonly PlayerMovementnput _input;
+    private readonly ICollisionService _collisionService;
 
-    public PlayerPresenter(IPlayerMessaging playerMessaging, ILoopPlacementService loopPlacementService, PlayerViewModel model)
+    public PlayerPresenter(ICollisionService collisionService, IPlayerMessaging playerMessaging, ILoopPlacementService loopPlacementService, PlayerViewModel model)
     {
         _playerMessaging = playerMessaging;
         _loopPlacementService = loopPlacementService;
         _model = model;
+        _collisionService = collisionService;
 
         _input = new PlayerMovementnput();
     }
 
     public void Dispose()
     {
-        _playerMessaging.SpawnRequest -= OnSpawnRequested;
+        _playerMessaging.ShowRequest -= OnShowRequested;
+        _playerMessaging.HideRequest -= OnHideRequested;
         _playerMessaging.PlayerShotSpawnDataRequest -= OnPlayerShotSpawnDataRequest;
 
         _input.Disable();
@@ -27,15 +30,33 @@ public class PlayerPresenter : IDisposable
 
     public void OnViewCreated()
     {
-        _playerMessaging.SpawnRequest += OnSpawnRequested;
+        _playerMessaging.ShowRequest += OnShowRequested;
+        _playerMessaging.HideRequest += OnHideRequested;
         _playerMessaging.PlayerShotSpawnDataRequest += OnPlayerShotSpawnDataRequest;
     }
 
-    private void OnSpawnRequested()
+    public void OnColliderTrigger(Collider2D col)
     {
-        _model.SpawnPlayer();
+        var wasCollision = _collisionService.HandleCollision(col);
+
+        if (wasCollision)
+        {
+            _playerMessaging.ReportCollision();
+        }
+    }
+
+    private void OnShowRequested()
+    {
+        _model.Show();
 
         _input.Enable();
+    }
+
+    private void OnHideRequested()
+    {
+        _input.Disable();
+
+        _model.Hide();
     }
 
     public void OnUpdate(Vector3 position)

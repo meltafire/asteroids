@@ -1,5 +1,5 @@
 {
-    "name": "Asteroids.BulletCollisionService",
+    "name": "Asteroids.CollisionService",
     "rootNamespace": "",
     "references": [],
     "includePlatforms": [],

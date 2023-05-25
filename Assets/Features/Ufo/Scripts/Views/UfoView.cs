@@ -3,7 +3,7 @@ using UnityEngine;
 public class UfoView : MonoBehaviour
 {
     [SerializeField]
-    private TriggerView _triggerView;
+    private CollisionTriggerView _collistionTriggerView;
 
     private UfoViewPresenter _presenter;
     private Transform _transform;
@@ -16,7 +16,7 @@ public class UfoView : MonoBehaviour
 
         _transform = transform;
 
-        _triggerView.TriggerHappened += OnTriggerHappened;
+        _collistionTriggerView.TriggerHappened += OnTriggerHappened;
 
         _presenter.OnViewCreated();
     }
@@ -38,7 +38,7 @@ public class UfoView : MonoBehaviour
 
     private void OnDestroy()
     {
-        _triggerView.TriggerHappened -= OnTriggerHappened;
+        _collistionTriggerView.TriggerHappened -= OnTriggerHappened;
     }
 
     private void OnTriggerHappened()

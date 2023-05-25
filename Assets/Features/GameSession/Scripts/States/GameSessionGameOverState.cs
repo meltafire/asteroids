@@ -5,6 +5,8 @@ public class GameSessionGameOverState : IState
 {
     public Awaitable Execute(CancellationToken token)
     {
-        throw new System.NotImplementedException();
+        Debug.Log("game over");
+
+        return Awaitable.WaitForSecondsAsync(1);
     }
 }

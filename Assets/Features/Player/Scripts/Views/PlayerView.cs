@@ -17,6 +17,11 @@ public class PlayerView : MonoBehaviour
         _presenter.OnUpdate(_transform.position);
     }
 
+    private void OnTriggerEnter2D(Collider2D col)
+    {
+        _presenter.OnColliderTrigger(col);
+    }
+
     public void Initialize(PlayerPresenter presenter)
     {
         _presenter = presenter;
@@ -25,9 +30,9 @@ public class PlayerView : MonoBehaviour
         _presenter.OnViewCreated();
     }
 
-    public void Spawn()
+    public void SetActive(bool isActive)
     {
-        gameObject.SetActive(true);
+        gameObject.SetActive(isActive);
     }
 
     public void Rotate(Vector3 rotation)

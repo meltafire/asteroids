@@ -5,26 +5,27 @@ public class GameSessionRootState
 {
     public async Awaitable Execute(CancellationToken token)
     {
+        var collisionService = new CollisionService();
+
         var borderPlacementService = new BorderPlacementService(Camera.main);
 
-        var playerFacade = new PlayerFacade(borderPlacementService);
+        var playerFacade = new PlayerFacade(borderPlacementService, collisionService);
         var playerMessaging = playerFacade.Execute();
 
         var asteroidsService = new AsteroidsService(borderPlacementService, borderPlacementService);
 
-        var bulletCollisionService = new BulletCollisionService();
         var shotStartData = playerMessaging.GetShotSpawnData();
-        var bulletService = new BulletService(shotStartData, borderPlacementService, bulletCollisionService);
+        var bulletService = new BulletService(shotStartData, borderPlacementService, collisionService);
         var laserService = new LaserService();
-        laserService.SpawnLaser(playerMessaging.GetShotSpawnData().ShotStartTransform, bulletCollisionService);
+        laserService.SpawnLaser(playerMessaging.GetShotSpawnData().ShotStartTransform, collisionService);
 
         var ufoService = new UfoService(borderPlacementService, playerMessaging);
 
         while (!token.IsCancellationRequested)
         {
-            var gameSessionAndPlayerMessaging = new GameSessionAndPlayerMessaging();
+            var gameSessionMessaging = new GameSessionMessaging();
 
-            var stateMachine = new GameSessionStateMachine(playerMessaging, asteroidsService, bulletService, laserService, ufoService, gameSessionAndPlayerMessaging);
+            var stateMachine = new GameSessionStateMachine(playerMessaging, asteroidsService, bulletService, laserService, ufoService, gameSessionMessaging);
 
             await stateMachine.GoThroughStates(token);
         }

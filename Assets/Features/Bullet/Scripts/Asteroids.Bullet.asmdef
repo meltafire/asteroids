@@ -4,7 +4,7 @@
     "references": [
         "Asteroids.Tools",
         "Asteroids.Player",
-        "Asteroids.BulletCollisionService",
+        "Asteroids.CollisionService",
         "Asteroids.Infrastructure"
     ],
     "includePlatforms": [],

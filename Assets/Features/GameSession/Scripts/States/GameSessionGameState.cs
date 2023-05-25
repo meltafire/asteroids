@@ -8,6 +8,7 @@ public class GameSessionGameState : StateWithTask
     private readonly BulletService _bulletService;
     private readonly LaserService _laserService;
     private readonly UfoService _ufoService;
+    private readonly GameSessionMessaging _gameMessaging;
 
     public GameSessionGameState(
         IPlayerToPlayfieldMessaging playerMessaging,
@@ -15,9 +16,10 @@ public class GameSessionGameState : StateWithTask
         BulletService bulletService,
         LaserService laserService,
         UfoService ufoService,
-        IStateWithTaskConditionProvider conditionProvider)
-        : base(conditionProvider)
+        GameSessionMessaging gameMessaging)
+        : base(gameMessaging)
     {
+        _gameMessaging = gameMessaging;
         _playerMessaging = playerMessaging;
         _asteroidsService = asteroidsService;
         _bulletService = bulletService;
@@ -27,11 +29,12 @@ public class GameSessionGameState : StateWithTask
 
     public async override Awaitable Execute(CancellationToken token)
     {
-        _playerMessaging.SpawnPlayer();
-
         using (var linkedTs = CancellationTokenSource.CreateLinkedTokenSource(token))
         {
             var linkedToken = linkedTs.Token;
+
+            _playerMessaging.Show();
+            _playerMessaging.CollisionHappened += _gameMessaging.RequestGameEnd;
 
             _asteroidsService.SpawnAsteroids(linkedToken);
 
@@ -41,6 +44,9 @@ public class GameSessionGameState : StateWithTask
             _ufoService.Execute(linkedToken);
 
             await base.Execute(token);
+
+            _playerMessaging.CollisionHappened -= _gameMessaging.RequestGameEnd;
+            _playerMessaging.Hide();
 
             linkedTs.Cancel();
 

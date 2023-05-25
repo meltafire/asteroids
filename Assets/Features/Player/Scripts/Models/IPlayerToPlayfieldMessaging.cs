@@ -1,6 +1,10 @@
-﻿public interface IPlayerToPlayfieldMessaging
-{
-    IPlayerShotSpawnDataProvider GetShotSpawnData();
+﻿using System;
 
-    void SpawnPlayer();
+public interface IPlayerToPlayfieldMessaging
+{
+    event Action CollisionHappened;
+
+    IPlayerShotSpawnDataProvider GetShotSpawnData();
+    void Show();
+    void Hide();
 }

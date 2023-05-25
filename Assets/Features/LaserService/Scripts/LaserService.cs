@@ -18,7 +18,7 @@ public class LaserService
         _facade = new LaserFacade();
     }
 
-    public void SpawnLaser(Transform parentTransform, IBulletCollisionService collisionService)
+    public void SpawnLaser(Transform parentTransform, ICollisionService collisionService)
     {
         _laserMessaging = _facade.SpawnLaser(parentTransform, collisionService);
     }

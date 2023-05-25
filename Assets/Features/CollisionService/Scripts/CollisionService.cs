@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class BulletCollisionService : IBulletCollisionService
+public class CollisionService : ICollisionService
 {
     private const string AsteroidTag = "Asteroid";
 
@@ -8,7 +8,7 @@ public class BulletCollisionService : IBulletCollisionService
     {
         if(col.gameObject.tag == AsteroidTag)
         {
-            var view = col.GetComponent<TriggerView>();
+            var view = col.GetComponent<CollisionTriggerView>();
 
             view.HandleBulletCollision();
 
