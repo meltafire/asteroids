@@ -3,6 +3,13 @@ using UnityEngine;
 
 public class GameSessionRootState
 {
+    private readonly RectTransform _canvasTransfrom;
+
+    public GameSessionRootState(RectTransform canvasTransfrom)
+    {
+        _canvasTransfrom = canvasTransfrom;
+    }
+
     public async Awaitable Execute(CancellationToken token)
     {
         var collisionService = new CollisionService();
@@ -25,7 +32,14 @@ public class GameSessionRootState
         {
             var gameSessionMessaging = new GameSessionMessaging();
 
-            var stateMachine = new GameSessionStateMachine(playerMessaging, asteroidsService, bulletService, laserService, ufoService, gameSessionMessaging);
+            var stateMachine = new GameSessionStateMachine(
+                playerMessaging,
+                asteroidsService,
+                bulletService,
+                laserService,
+                ufoService,
+                gameSessionMessaging,
+                _canvasTransfrom);
 
             await stateMachine.GoThroughStates(token);
         }

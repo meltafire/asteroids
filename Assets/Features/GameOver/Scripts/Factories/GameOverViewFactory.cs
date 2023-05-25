@@ -1,8 +1,8 @@
 using UnityEngine;
 
-public class StartScreenViewFactory
+public class GameOverViewFactory
 {
-    private const string StartScreenAdress = "StartScreen/StartScreen";
+    private const string StartScreenAdress = "GameOver/GameOverScreen";
 
     public OneButtonWindowView Create(RectTransform parrentTransform)
     {

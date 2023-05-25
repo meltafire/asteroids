@@ -1,15 +1,14 @@
-using System;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class StartScreenView : MonoBehaviour, IStartScreenView
+public class OneButtonWindowView : MonoBehaviour
 {
     [SerializeField]
     private Button _button;
 
-    private StartScreenPresenter _presenter;
+    private OneButtonWindowPresenter _presenter;
 
-    public void Initialize(StartScreenPresenter presenter)
+    public void Initialize(OneButtonWindowPresenter presenter)
     {
         _presenter = presenter;
 

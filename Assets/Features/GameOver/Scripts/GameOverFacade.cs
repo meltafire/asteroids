@@ -1,26 +1,26 @@
 using System.Threading;
 using UnityEngine;
 
-public class StartScreenFacade
+public class GameOverFacade
 {
     private readonly RectTransform _parentTransform;
 
-    public StartScreenFacade(RectTransform parentTransform)
+    public GameOverFacade(RectTransform parentTransform)
     {
         _parentTransform = parentTransform;
     }
 
     public async Awaitable Execute(CancellationToken token)
     {
-        var viewFactory = new StartScreenViewFactory();
+        var viewFactory = new GameOverViewFactory();
         var view = viewFactory.Create(_parentTransform);
 
         var model = new OneButtonWindowModel(view);
 
-        var messaging = new StartScreenMessaging();
+        var messaging = new GameOverMessaging();
 
         var presenter = new OneButtonWindowPresenter(model, messaging);
-        var rootState = new StartScreenRootState(messaging);
+        var rootState = new GameOverRootState(messaging);
 
         view.Initialize(presenter);
 

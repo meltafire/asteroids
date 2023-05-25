@@ -1,6 +1,6 @@
 ﻿using System;
 
-public class StartScreenControllerAndPresenterMessaging : IStartScreenPresenterMessaging, IStateWithTaskConditionProvider
+public class StartScreenMessaging : IOneButtonWindowMessaging, IStateWithTaskConditionProvider
 {
     public event Action ConditionHappened;
 

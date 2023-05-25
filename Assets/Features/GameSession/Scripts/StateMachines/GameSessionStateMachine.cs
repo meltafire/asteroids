@@ -1,3 +1,5 @@
+using UnityEngine;
+
 public class GameSessionStateMachine : StateMachine
 {
     public GameSessionStateMachine(
@@ -6,11 +8,12 @@ public class GameSessionStateMachine : StateMachine
         BulletService bulletService,
         LaserService laserService,
         UfoService ufoService,
-        GameSessionMessaging messaging)
+        GameSessionMessaging messaging,
+        RectTransform canvasTransfrom)
         : base()
     {
         _statesQueue.Enqueue(new GameSessionGameState(playerMessaging, asteroidsService, bulletService, laserService, ufoService, messaging));
-        _statesQueue.Enqueue(new GameSessionGameOverState());
+        _statesQueue.Enqueue(new GameSessionGameOverState(canvasTransfrom));
         _statesQueue.Enqueue(new GameSessionCleanUpState());
     }
 }

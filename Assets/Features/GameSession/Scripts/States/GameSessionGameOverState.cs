@@ -3,10 +3,17 @@ using UnityEngine;
 
 public class GameSessionGameOverState : IState
 {
+    private readonly RectTransform _rectTransform;
+
+    public GameSessionGameOverState(RectTransform rectTransform)
+    {
+        _rectTransform = rectTransform;
+    }
+
     public Awaitable Execute(CancellationToken token)
     {
-        Debug.Log("game over");
+        var facade = new GameOverFacade(_rectTransform);
 
-        return Awaitable.WaitForSecondsAsync(1);
+        return facade.Execute(token);
     }
 }

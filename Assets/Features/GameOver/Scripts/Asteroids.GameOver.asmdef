@@ -1,0 +1,16 @@
+{
+    "name": "Asteroids.GameOver",
+    "rootNamespace": "",
+    "references": [
+        "Asteroids.Infrastructure"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": false,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
