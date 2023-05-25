@@ -180,7 +180,7 @@ Transform:
   m_Children:
   - {fileID: 442018387167065060}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &4761399614903991938
 MonoBehaviour:
@@ -194,4 +194,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8453361efc9cd7746a3506e7d30167c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _triggerView: {fileID: 3350622847455252351}
+  _collistionTriggerView: {fileID: 3350622847455252351}
