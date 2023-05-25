@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class AsteroidViewModel
 {
-    private const float LinearSpeedMaxLimit = 2f;
+    //private const float LinearSpeedMaxLimit = 2f;
 
     private readonly AsteroidView _view;
 
@@ -21,24 +21,26 @@ public class AsteroidViewModel
         _view.HandleDestroy();
     }
 
-    public void HandleShow(Vector3 startPosition)
+    public void HandleShow(Vector3 startPosition, Vector3 velocity)
     {
         _view.SetActive(true);
 
-        var speedX = 0f;
-        var speedY = 0f;
+        _velocity = velocity;
 
-        while (speedX == 0 && speedY == 0)
-        {
-            speedX = Random.Range(-LinearSpeedMaxLimit, LinearSpeedMaxLimit);
-            speedY = Random.Range(-LinearSpeedMaxLimit, LinearSpeedMaxLimit);
-        }
+        //var speedX = 0f;
+        //var speedY = 0f;
 
-        _velocity = new Vector3(
-            speedX,
-            speedY,
-            0f
-            );
+        //while (speedX == 0 && speedY == 0)
+        //{
+        //    speedX = Random.Range(-LinearSpeedMaxLimit, LinearSpeedMaxLimit);
+        //    speedY = Random.Range(-LinearSpeedMaxLimit, LinearSpeedMaxLimit);
+        //}
+
+        //_velocity = new Vector3(
+        //    speedX,
+        //    speedY,
+        //    0f
+        //    );
 
         _view.Move(startPosition);
     }

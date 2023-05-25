@@ -8,6 +8,6 @@ public interface IAsteroidToPlayfieldMessaging
     AsteroidType AsteroidType { get; }
 
     Vector3 GetPosition();
-    void Show(Vector3 position);
+    void Show(Vector3 position, Vector3 velocity);
     void ReturnToPool();
 }

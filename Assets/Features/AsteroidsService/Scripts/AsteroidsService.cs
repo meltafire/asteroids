@@ -8,6 +8,8 @@ public class AsteroidsService : ISpawnAsteroidsService, IDespawnAsteroidsService
     private const int BigAsteroidLimit = 5;
     private const float DelayBetweenSpawn = 2f;
     private const int InitalCacheSize = 20;
+    private const float BigAsteroidSpeedLimit = 2f;
+    private const float SmallAsteroidSpeedLimit = 4f;
 
     private readonly AsteroidsFacade _asteroidsFacade;
     private readonly IOutOfScreenPlacementService _outOfScreenPlacementService;
@@ -41,7 +43,7 @@ public class AsteroidsService : ISpawnAsteroidsService, IDespawnAsteroidsService
             {
                 var asteroidMessaging = _asteroidsFacade.SpawnAsteroid(AsteroidType.Big);
 
-                asteroidMessaging.Show(_outOfScreenPlacementService.GetRandomPositionAtScreenBorder());
+                asteroidMessaging.Show(_outOfScreenPlacementService.GetRandomPositionAtScreenBorder(), GenerateVelocityForBigAsteroid());
                 asteroidMessaging.BulletCollisionReported += OnBulletCollisionReported;
 
                 _bigAsteroids.Add(asteroidMessaging);
@@ -95,8 +97,36 @@ public class AsteroidsService : ISpawnAsteroidsService, IDespawnAsteroidsService
             var asteroidMessaging = _asteroidsFacade.SpawnAsteroid(AsteroidType.Small);
             _smallAsteroids.Add(asteroidMessaging);
 
-            asteroidMessaging.Show(bigAsteroidmMessaging.GetPosition());
+            asteroidMessaging.Show(bigAsteroidmMessaging.GetPosition(), GenerateVelocityForSmallAsteroid());
             asteroidMessaging.BulletCollisionReported += OnBulletCollisionReported;
         }
+    }
+
+    private Vector3 GenerateVelocityForBigAsteroid()
+    {
+        return GenerateVelocityDirection() * Random.Range(1, BigAsteroidSpeedLimit);
+    }
+
+    private Vector3 GenerateVelocityForSmallAsteroid()
+    {
+        return GenerateVelocityDirection() * Random.Range(BigAsteroidSpeedLimit, SmallAsteroidSpeedLimit);
+    }
+
+    private Vector3 GenerateVelocityDirection()
+    {
+        var speedX = 0f;
+        var speedY = 0f;
+
+        while (speedX == 0 && speedY == 0)
+        {
+            speedX = Random.Range(-1f, 1f);
+            speedY = Random.Range(-1f, 1f);
+        }
+
+        return new Vector3(
+            speedX,
+            speedY,
+            0f
+            );
     }
 }

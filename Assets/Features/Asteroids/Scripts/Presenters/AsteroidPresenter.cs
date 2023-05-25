@@ -50,9 +50,9 @@ public class AsteroidPresenter : IDisposable
         _model.HandleDestroy();
     }
 
-    private void OnShowRequested(Vector3 position)
+    private void OnShowRequested(Vector3 position, Vector3 velocity)
     {
-        _model.HandleShow(position);
+        _model.HandleShow(position, velocity);
     }
 
     private void OnHideRequested()

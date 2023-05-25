@@ -8,7 +8,7 @@ public class AsteroidMessaging : IAsteroidToPlayfieldMessaging, IAsteroidMessagi
 
     public AsteroidType AsteroidType => _asteroidType;
 
-    public event Action<Vector3> ShowRequest;
+    public event Action<Vector3, Vector3> ShowRequest;
     public event Action DestroyRequest;
     public event Action HideRequest;
     public event Action<IAsteroidToPlayfieldMessaging> BulletCollisionReported;
@@ -30,9 +30,9 @@ public class AsteroidMessaging : IAsteroidToPlayfieldMessaging, IAsteroidMessagi
         HideRequest?.Invoke();
     }
 
-    public void Show(Vector3 position)
+    public void Show(Vector3 position, Vector3 velocity)
     {
-        ShowRequest?.Invoke(position);
+        ShowRequest?.Invoke(position, velocity);
     }
 
     public void RequestDestroy()
