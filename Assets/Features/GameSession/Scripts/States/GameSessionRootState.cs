@@ -21,7 +21,10 @@ public class GameSessionRootState
         var playerMessaging = LaunchPlayerFeature(borderPlacementService, collisionService);
         var asteroidsService = new AsteroidsService(borderPlacementService, borderPlacementService);
         var bulletService = LaunchBulletFeature(playerMessaging, borderPlacementService, collisionService);
+
         var laserService = LaunchLaserFeature(playerMessaging, collisionService);
+        laserService.Initialize();
+
         var ufoService = new UfoService(borderPlacementService, playerMessaging);
 
         var uiIndicatorFacade = new UiIndicatorFacade(_indicatorsCanvasTransfrom);
@@ -31,6 +34,8 @@ public class GameSessionRootState
         rotationIndicatorService.CreateIndicator();
         var speedIndicatorService = new SpeedIndicatorService(uiIndicatorFacade, playerMessaging);
         speedIndicatorService.CreateIndicator();
+        var laserCountIndicator = new LaserCountIndicator(laserService.LaserServiceExternalMessaging, uiIndicatorFacade, playerMessaging);
+        laserCountIndicator.CreateIndicator();
 
         while (!token.IsCancellationRequested)
         {

@@ -3,7 +3,8 @@
     "rootNamespace": "",
     "references": [
         "Asteroids.UiIndicator",
-        "Asteroids.Player"
+        "Asteroids.Player",
+        "Asteroids.LaserService"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
