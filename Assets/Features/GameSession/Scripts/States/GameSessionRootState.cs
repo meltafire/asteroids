@@ -27,6 +27,8 @@ public class GameSessionRootState
         var uiIndicatorFacade = new UiIndicatorFacade(_indicatorsCanvasTransfrom);
         var positionIndicatorService = new PositionIndicatorService(uiIndicatorFacade, playerMessaging);
         positionIndicatorService.CreateIndicator();
+        var rotationIndicatorService = new RotationIndicatorService(uiIndicatorFacade, playerMessaging);
+        rotationIndicatorService.CreateIndicator();
 
         while (!token.IsCancellationRequested)
         {

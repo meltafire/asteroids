@@ -12,7 +12,7 @@
         "Asteroids.UfoService",
         "Asteroids.GameOver",
         "Asteroids.UiIndicator",
-        "Asteroids.PositionIndicator"
+        "Asteroids.Indicators"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

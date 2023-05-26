@@ -55,7 +55,7 @@ public class PlayerPresenter : IDisposable
 
         _input.Enable();
 
-        _playerMessaging.ReportShowHappen(_model.Position);
+        _playerMessaging.ReportShowHappen(_model.Position, _model.Rotation);
     }
 
     private void OnHideRequested()
@@ -93,6 +93,8 @@ public class PlayerPresenter : IDisposable
             {
                 _model.TurnRight();
             }
+
+            _playerMessaging.ReportUpdateRotation(_model.Rotation);
         }
     }
 

@@ -1,45 +1,28 @@
-using System;
-using System.Text;
 using UnityEngine;
 
-public class PositionIndicatorService : IDisposable
+public class PositionIndicatorService : PlayerIndicator
 {
     private const string PositionText = "pos {0:0.0}:{1:0.0}";
 
-    private readonly UiIndicatorFacade _uiIndicatorFacade;
-    private readonly IPlayerToPlayfieldMessaging _playerMessaging;
-    private readonly StringBuilder _builder;
-
-    private IUiIndicatorExternalMessaging _messaging;
-
-    public PositionIndicatorService(UiIndicatorFacade uiIndicatorFacade, IPlayerToPlayfieldMessaging playerMessaging)
+    public PositionIndicatorService(UiIndicatorFacade uiIndicatorFacade, IPlayerToPlayfieldMessaging playerMessaging) : base(uiIndicatorFacade, playerMessaging)
     {
-        _uiIndicatorFacade = uiIndicatorFacade;
-        _playerMessaging = playerMessaging;
-
-        _builder = new StringBuilder();
     }
 
-    public void CreateIndicator()
+    protected override void Subscribe()
     {
-        if (_messaging == null)
-        {
-            _messaging = _uiIndicatorFacade.CreateView();
-        }
-
         _playerMessaging.ShowHappen += OnShowHappen;
         _playerMessaging.HideHappen += OnHideHappen;
         _playerMessaging.UpdatePosition += OnUpdatePosition;
     }
 
-    public void Dispose()
+    protected override void Unsubscribe()
     {
         _playerMessaging.ShowHappen -= OnShowHappen;
         _playerMessaging.HideHappen -= OnHideHappen;
         _playerMessaging.UpdatePosition -= OnUpdatePosition;
     }
 
-    private void OnShowHappen(Vector3 position)
+    private void OnShowHappen(Vector3 position, float rotation)
     {
         _messaging.Show(GenerateText(position));
     }

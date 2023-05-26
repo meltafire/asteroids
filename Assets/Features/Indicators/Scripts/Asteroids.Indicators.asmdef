@@ -1,5 +1,5 @@
 {
-    "name": "Asteroids.PositionIndicator",
+    "name": "Asteroids.Indicators",
     "rootNamespace": "",
     "references": [
         "Asteroids.UiIndicator",

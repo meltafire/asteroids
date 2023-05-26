@@ -7,9 +7,10 @@ public class PlayerMessaging : IPlayerMessaging, IPlayerToPlayfieldMessaging
     public event Action HideRequest;
     public event Func<IPlayerShotSpawnDataProvider> PlayerShotSpawnDataRequest;
     public event Action CollisionHappened;
-    public event Action<Vector3> ShowHappen;
+    public event Action<Vector3, float> ShowHappen;
     public event Action HideHappen;
     public event Action<Vector3> UpdatePosition;
+    public event Action<float> UpdateRotation;
 
     public IPlayerShotSpawnDataProvider GetShotSpawnData()
     {
@@ -31,9 +32,9 @@ public class PlayerMessaging : IPlayerMessaging, IPlayerToPlayfieldMessaging
         HideRequest?.Invoke();
     }
 
-    public void ReportShowHappen(Vector3 position)
+    public void ReportShowHappen(Vector3 position, float rotation)
     {
-        ShowHappen?.Invoke(position);
+        ShowHappen?.Invoke(position, rotation);
     }
 
     public void ReportHideHappen()
@@ -44,5 +45,10 @@ public class PlayerMessaging : IPlayerMessaging, IPlayerToPlayfieldMessaging
     public void ReportUpdatePosition(Vector3 position)
     {
         UpdatePosition?.Invoke(position);
+    }
+
+    public void ReportUpdateRotation(float rotation)
+    {
+        UpdateRotation?.Invoke(rotation);
     }
 }

@@ -11,6 +11,7 @@ public class PlayerView : MonoBehaviour
     public Vector3 ForwardDirection => _transform.up;
     public Transform ShotStartTransform => _shotStartTransform;
     public Vector3 Position => _transform.position;
+    public float Rotation => _transform.rotation.z;
 
     private void Update()
     {

@@ -11,6 +11,7 @@ public class PlayerViewModel
 
     public Vector3 Velocity => _velocity;
     public Vector3 Position => _playerView.Position;
+    public float Rotation => _playerView.Rotation;
     public Transform ShotStartTransform => _playerView.ShotStartTransform;
 
     public PlayerViewModel(PlayerView playerView)
