@@ -9,6 +9,8 @@ public class PlayerPresenter : IDisposable
     private readonly PlayerMovementnput _input;
     private readonly ICollisionService _collisionService;
 
+    private IPlayerShotSpawnDataProvider _shotSpawnDataProvider;
+
     public PlayerPresenter(ICollisionService collisionService, IPlayerMessaging playerMessaging, ILoopPlacementService loopPlacementService, PlayerViewModel model)
     {
         _playerMessaging = playerMessaging;
@@ -33,6 +35,8 @@ public class PlayerPresenter : IDisposable
         _playerMessaging.ShowRequest += OnShowRequested;
         _playerMessaging.HideRequest += OnHideRequested;
         _playerMessaging.PlayerShotSpawnDataRequest += OnPlayerShotSpawnDataRequest;
+
+        _shotSpawnDataProvider = new PlayerShotSpawnDataProvider(_model.ShotStartTransform);
     }
 
     public void OnColliderTrigger(Collider2D col)
@@ -50,6 +54,8 @@ public class PlayerPresenter : IDisposable
         _model.Show();
 
         _input.Enable();
+
+        _playerMessaging.ReportShowHappen(_model.Position);
     }
 
     private void OnHideRequested()
@@ -57,16 +63,20 @@ public class PlayerPresenter : IDisposable
         _input.Disable();
 
         _model.Hide();
+
+        _playerMessaging.ReportHideHappen();
     }
 
-    public void OnUpdate(Vector3 position)
+    public void OnUpdate()
     {
         HandleAcceleration();
         HandleRotation();
 
-        var expectedPosition = _loopPlacementService.AdjustPosition(_model.Velocity * Time.deltaTime + position);
+        var expectedPosition = _loopPlacementService.AdjustPosition(_model.Velocity * Time.deltaTime + _model.Position);
 
         _model.Move(expectedPosition);
+
+        _playerMessaging.ReportUpdatePosition(_model.Position);
     }
 
     private void HandleRotation()
@@ -98,6 +108,6 @@ public class PlayerPresenter : IDisposable
 
     private IPlayerShotSpawnDataProvider OnPlayerShotSpawnDataRequest()
     {
-        return _model;
+        return _shotSpawnDataProvider;
     }
 }

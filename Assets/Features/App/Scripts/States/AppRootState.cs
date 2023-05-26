@@ -3,16 +3,9 @@ using UnityEngine;
 
 public class AppRootState
 {
-    private readonly RectTransform _canvasTransform;
-
-    public AppRootState(RectTransform canvasTransform)
+    public Awaitable Execute(RectTransform canvasTransfrom, RectTransform indicatorsCanvasTransfrom, CancellationToken token)
     {
-        _canvasTransform = canvasTransform;
-    }
-
-    public Awaitable Execute(CancellationToken token)
-    {
-        var stateMachine = new AppStateMachine(_canvasTransform);
+        var stateMachine = new AppStateMachine(canvasTransfrom, indicatorsCanvasTransfrom);
 
         return stateMachine.GoThroughStates(token);
     }

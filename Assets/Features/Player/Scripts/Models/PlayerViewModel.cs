@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class PlayerViewModel : IPlayerShotSpawnDataProvider
+public class PlayerViewModel
 {
     private const int RotationSpeed = 100;
     private const float SqrSpeedLimit = 10f;
@@ -10,9 +10,7 @@ public class PlayerViewModel : IPlayerShotSpawnDataProvider
     private Vector3 _velocity;
 
     public Vector3 Velocity => _velocity;
-    public Vector3 ShotStartPosition => _playerView.ShotStartPosition;
-    public Vector3 Direction => _playerView.ForwardDirection;
-
+    public Vector3 Position => _playerView.Position;
     public Transform ShotStartTransform => _playerView.ShotStartTransform;
 
     public PlayerViewModel(PlayerView playerView)

@@ -3,15 +3,9 @@ using UnityEngine;
 
 public class GameSessionFacade
 {
-    private readonly RectTransform _canvasTransfrom;
-    public GameSessionFacade(RectTransform canvasTransfrom)
+    public Awaitable Execute(RectTransform canvasTransfrom, RectTransform indicatorsCanvasTransfrom, CancellationToken token)
     {
-        _canvasTransfrom = canvasTransfrom;
-    }
-
-    public Awaitable Execute(CancellationToken token)
-    {
-        var controller = new GameSessionRootState(_canvasTransfrom);
+        var controller = new GameSessionRootState(canvasTransfrom, indicatorsCanvasTransfrom);
 
         return controller.Execute(token);
     }

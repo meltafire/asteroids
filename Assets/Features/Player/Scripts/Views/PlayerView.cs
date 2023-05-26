@@ -9,12 +9,12 @@ public class PlayerView : MonoBehaviour
     private Transform _transform;
 
     public Vector3 ForwardDirection => _transform.up;
-    public Vector3 ShotStartPosition => _shotStartTransform.position;
     public Transform ShotStartTransform => _shotStartTransform;
+    public Vector3 Position => _transform.position;
 
     private void Update()
     {
-        _presenter.OnUpdate(_transform.position);
+        _presenter.OnUpdate();
     }
 
     private void OnTriggerEnter2D(Collider2D col)

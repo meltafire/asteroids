@@ -1,0 +1,17 @@
+{
+    "name": "Asteroids.PositionIndicator",
+    "rootNamespace": "",
+    "references": [
+        "Asteroids.UiIndicator",
+        "Asteroids.Player"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": false,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

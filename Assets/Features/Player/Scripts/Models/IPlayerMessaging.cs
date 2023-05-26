@@ -1,4 +1,5 @@
 ﻿using System;
+using UnityEngine;
 
 public interface IPlayerMessaging
 {
@@ -7,4 +8,7 @@ public interface IPlayerMessaging
     event Func<IPlayerShotSpawnDataProvider> PlayerShotSpawnDataRequest;
 
     void ReportCollision();
+    void ReportShowHappen(Vector3 position);
+    void ReportHideHappen();
+    void ReportUpdatePosition(Vector3 position);
 }

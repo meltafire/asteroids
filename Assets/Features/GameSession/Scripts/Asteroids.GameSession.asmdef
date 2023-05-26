@@ -10,7 +10,9 @@
         "Asteroids.LaserService",
         "Asteroids.CollisionService",
         "Asteroids.UfoService",
-        "Asteroids.GameOver"
+        "Asteroids.GameOver",
+        "Asteroids.UiIndicator",
+        "Asteroids.PositionIndicator"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
