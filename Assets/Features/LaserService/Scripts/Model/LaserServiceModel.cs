@@ -54,11 +54,17 @@ public class LaserServiceModel
 
             if (_timeToRefill <= 0)
             {
-                _timeToRefill = 0;
-
-                _isRefillOngoing = false;
-
                 Refill();
+
+                if (_currentLazerCount < LazerLimit)
+                {
+                    _timeToRefill = RefilTimeLimit;
+                }
+                else
+                {
+                    _timeToRefill = 0;
+                    _isRefillOngoing = false;
+                }
             }
 
             ReportTimeChanged();

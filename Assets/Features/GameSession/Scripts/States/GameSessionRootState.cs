@@ -36,6 +36,8 @@ public class GameSessionRootState
         speedIndicatorService.CreateIndicator();
         var laserCountIndicator = new LaserCountIndicator(laserService.LaserServiceExternalMessaging, uiIndicatorFacade, playerMessaging);
         laserCountIndicator.CreateIndicator();
+        var laserTimeIndicator = new LaserTimeIndicator(laserService.LaserServiceExternalMessaging, uiIndicatorFacade, playerMessaging);
+        laserTimeIndicator.CreateIndicator();
 
         while (!token.IsCancellationRequested)
         {
