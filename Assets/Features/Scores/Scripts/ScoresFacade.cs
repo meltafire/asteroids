@@ -2,7 +2,7 @@ public class ScoresFacade
 {
     private readonly ScoresModel _model;
 
-    public int Sccore => _model.Score;
+    public int Score => _model.Score;
 
     public ScoresFacade()
     {

@@ -10,17 +10,20 @@ public class GameOverFacade
         _parentTransform = parentTransform;
     }
 
-    public async Awaitable Execute(CancellationToken token)
+    public async Awaitable Execute(ScoresFacade scoresFacade, CancellationToken token)
     {
         var viewFactory = new GameOverViewFactory();
-        var view = viewFactory.Create(_parentTransform);
+
+        OneButtonWindowView view;
+        GameOverScoreView scoreView;
+        viewFactory.Create(_parentTransform, out view, out scoreView);
 
         var model = new OneButtonWindowModel(view);
 
         var messaging = new GameOverMessaging();
 
         var presenter = new OneButtonWindowPresenter(model, messaging);
-        var rootState = new GameOverRootState(messaging);
+        var rootState = new GameOverRootState(scoreView, scoresFacade, messaging);
 
         view.Initialize(presenter);
 

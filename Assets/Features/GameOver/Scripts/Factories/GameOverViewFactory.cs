@@ -4,10 +4,13 @@ public class GameOverViewFactory
 {
     private const string StartScreenAdress = "GameOver/GameOverScreen";
 
-    public OneButtonWindowView Create(RectTransform parrentTransform)
+    public void Create(RectTransform parrentTransform, out OneButtonWindowView windowView, out GameOverScoreView scoreView)
     {
         var gameObject = Resources.Load<GameObject>(StartScreenAdress);
 
-        return GameObject.Instantiate(gameObject, parrentTransform).GetComponent<OneButtonWindowView>();
+        var instantiatedObject = GameObject.Instantiate(gameObject, parrentTransform);
+
+        windowView = instantiatedObject.GetComponent<OneButtonWindowView>();
+        scoreView = instantiatedObject.GetComponent<GameOverScoreView>();
     }
 }

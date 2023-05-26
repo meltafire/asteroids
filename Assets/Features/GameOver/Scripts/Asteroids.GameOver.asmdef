@@ -2,7 +2,9 @@
     "name": "Asteroids.GameOver",
     "rootNamespace": "",
     "references": [
-        "Asteroids.Infrastructure"
+        "Asteroids.Infrastructure",
+        "Unity.TextMeshPro",
+        "Asteroids.Scores"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

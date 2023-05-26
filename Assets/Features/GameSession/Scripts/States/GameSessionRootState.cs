@@ -21,27 +21,15 @@ public class GameSessionRootState
 
         var playerMessaging = LaunchPlayerFeature(borderPlacementService, collisionService);
 
-        var asteroidsService = new AsteroidsService(scoreFacade, borderPlacementService, borderPlacementService);
-        asteroidsService.Initialize();
+        var asteroidsService = SetupAsteroidService(scoreFacade, borderPlacementService);
 
         var bulletService = LaunchBulletFeature(playerMessaging, borderPlacementService, collisionService);
 
-        var laserService = LaunchLaserFeature(playerMessaging, collisionService);
-        laserService.Initialize();
+        var laserService = SetupLaserService(playerMessaging, collisionService);
 
         var ufoService = new UfoService(scoreFacade, borderPlacementService, playerMessaging);
 
-        var uiIndicatorFacade = new UiIndicatorFacade(_indicatorsCanvasTransfrom);
-        var positionIndicatorService = new PositionIndicatorService(uiIndicatorFacade, playerMessaging);
-        positionIndicatorService.CreateIndicator();
-        var rotationIndicatorService = new RotationIndicatorService(uiIndicatorFacade, playerMessaging);
-        rotationIndicatorService.CreateIndicator();
-        var speedIndicatorService = new SpeedIndicatorService(uiIndicatorFacade, playerMessaging);
-        speedIndicatorService.CreateIndicator();
-        var laserCountIndicator = new LaserCountIndicator(laserService.LaserServiceExternalMessaging, uiIndicatorFacade, playerMessaging);
-        laserCountIndicator.CreateIndicator();
-        var laserTimeIndicator = new LaserTimeIndicator(laserService.LaserServiceExternalMessaging, uiIndicatorFacade, playerMessaging);
-        laserTimeIndicator.CreateIndicator();
+        SetupIndicators(playerMessaging, laserService.LaserServiceExternalMessaging);
 
         while (!token.IsCancellationRequested)
         {
@@ -50,6 +38,7 @@ public class GameSessionRootState
             scoreFacade.Reset();
 
             var stateMachine = new GameSessionStateMachine(
+                scoreFacade,
                 playerMessaging,
                 asteroidsService,
                 asteroidsService,
@@ -63,6 +52,37 @@ public class GameSessionRootState
 
             await stateMachine.GoThroughStates(token);
         }
+    }
+
+    private AsteroidsService SetupAsteroidService(ScoresFacade scoreFacade, BorderPlacementService borderPlacementService)
+    {
+        var asteroidsService = new AsteroidsService(scoreFacade, borderPlacementService, borderPlacementService);
+        asteroidsService.Initialize();
+
+        return asteroidsService;
+    }
+
+    private LaserService SetupLaserService(IPlayerToPlayfieldMessaging playerMessaging, CollisionService collisionService)
+    {
+        var laserService = LaunchLaserFeature(playerMessaging, collisionService);
+        laserService.Initialize();
+
+        return laserService;
+    }
+
+    private void SetupIndicators(IPlayerToPlayfieldMessaging playerMessaging, ILaserServiceExternalMessaging laserService)
+    {
+        var uiIndicatorFacade = new UiIndicatorFacade(_indicatorsCanvasTransfrom);
+        var positionIndicatorService = new PositionIndicatorService(uiIndicatorFacade, playerMessaging);
+        positionIndicatorService.CreateIndicator();
+        var rotationIndicatorService = new RotationIndicatorService(uiIndicatorFacade, playerMessaging);
+        rotationIndicatorService.CreateIndicator();
+        var speedIndicatorService = new SpeedIndicatorService(uiIndicatorFacade, playerMessaging);
+        speedIndicatorService.CreateIndicator();
+        var laserCountIndicator = new LaserCountIndicator(laserService, uiIndicatorFacade, playerMessaging);
+        laserCountIndicator.CreateIndicator();
+        var laserTimeIndicator = new LaserTimeIndicator(laserService, uiIndicatorFacade, playerMessaging);
+        laserTimeIndicator.CreateIndicator();
     }
 
     private IPlayerToPlayfieldMessaging LaunchPlayerFeature(BorderPlacementService borderPlacementService, CollisionService collisionService)
