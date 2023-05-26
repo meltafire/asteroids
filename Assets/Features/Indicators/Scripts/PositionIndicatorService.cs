@@ -22,7 +22,7 @@ public class PositionIndicatorService : PlayerIndicator
         _playerMessaging.UpdatePosition -= OnUpdatePosition;
     }
 
-    private void OnShowHappen(Vector3 position, float rotation)
+    private void OnShowHappen(Vector3 position, float rotation, float speed)
     {
         _messaging.Show(GenerateText(position));
     }

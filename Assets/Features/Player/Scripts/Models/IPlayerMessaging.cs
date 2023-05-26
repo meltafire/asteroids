@@ -8,8 +8,9 @@ public interface IPlayerMessaging
     event Func<IPlayerShotSpawnDataProvider> PlayerShotSpawnDataRequest;
 
     void ReportCollision();
-    void ReportShowHappen(Vector3 position, float rotation);
+    void ReportShowHappen(Vector3 position, float rotation, float speed);
     void ReportHideHappen();
     void ReportUpdatePosition(Vector3 position);
     void ReportUpdateRotation(float rotation);
+    void ReportSpeedUpdate(float speed);
 }

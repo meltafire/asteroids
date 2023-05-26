@@ -29,6 +29,8 @@ public class GameSessionRootState
         positionIndicatorService.CreateIndicator();
         var rotationIndicatorService = new RotationIndicatorService(uiIndicatorFacade, playerMessaging);
         rotationIndicatorService.CreateIndicator();
+        var speedIndicatorService = new SpeedIndicatorService(uiIndicatorFacade, playerMessaging);
+        speedIndicatorService.CreateIndicator();
 
         while (!token.IsCancellationRequested)
         {

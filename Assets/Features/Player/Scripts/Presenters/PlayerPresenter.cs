@@ -55,7 +55,7 @@ public class PlayerPresenter : IDisposable
 
         _input.Enable();
 
-        _playerMessaging.ReportShowHappen(_model.Position, _model.Rotation);
+        _playerMessaging.ReportShowHappen(_model.Position, _model.Rotation, _model.Speed);
     }
 
     private void OnHideRequested()
@@ -105,6 +105,8 @@ public class PlayerPresenter : IDisposable
         if (movementIndex != 0)
         {
             _model.Accelerate();
+
+            _playerMessaging.ReportSpeedUpdate(_model.Speed);
         }
     }
 
