@@ -13,14 +13,19 @@ public class AsteroidsService : ISpawnAsteroidsService, IDespawnAsteroidsService
 
     private readonly AsteroidsFacade _asteroidsFacade;
     private readonly IOutOfScreenPlacementService _outOfScreenPlacementService;
+    private readonly ScoresFacade _scoresFacade;
 
     private int _bigActiveAsteroids;
 
     private List<IAsteroidToPlayfieldMessaging> _bigAsteroids = new List<IAsteroidToPlayfieldMessaging>(InitalCacheSize);
     private List<IAsteroidToPlayfieldMessaging> _smallAsteroids = new List<IAsteroidToPlayfieldMessaging>(InitalCacheSize);
 
-    public AsteroidsService(ILoopPlacementService loopPlacementService, IOutOfScreenPlacementService outOfScreenPlacementService)
+    public AsteroidsService(
+        ScoresFacade scoresFacade,
+        ILoopPlacementService loopPlacementService,
+        IOutOfScreenPlacementService outOfScreenPlacementService)
     {
+        _scoresFacade = scoresFacade;
         _outOfScreenPlacementService = outOfScreenPlacementService;
 
         _asteroidsFacade = new AsteroidsFacade(loopPlacementService, InitalCacheSize, InitalCacheSize);
@@ -83,10 +88,14 @@ public class AsteroidsService : ISpawnAsteroidsService, IDespawnAsteroidsService
             _bigActiveAsteroids--;
 
             _bigAsteroids.Remove(messaging);
+
+            _scoresFacade.RegisterAsteroid();
         }
         else
         {
             _smallAsteroids.Remove(messaging);
+
+            _scoresFacade.RegisterAsteroidSmall();
         }
 
         messaging.BulletCollisionReported -= OnBulletCollisionReported;

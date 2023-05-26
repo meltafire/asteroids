@@ -14,13 +14,14 @@ public class GameSessionRootState
 
     public async Awaitable Execute(CancellationToken token)
     {
+        var scoreFacade = new ScoresFacade();
         var collisionService = new CollisionService();
 
         var borderPlacementService = new BorderPlacementService(Camera.main);
 
         var playerMessaging = LaunchPlayerFeature(borderPlacementService, collisionService);
 
-        var asteroidsService = new AsteroidsService(borderPlacementService, borderPlacementService);
+        var asteroidsService = new AsteroidsService(scoreFacade, borderPlacementService, borderPlacementService);
         asteroidsService.Initialize();
 
         var bulletService = LaunchBulletFeature(playerMessaging, borderPlacementService, collisionService);
@@ -28,7 +29,7 @@ public class GameSessionRootState
         var laserService = LaunchLaserFeature(playerMessaging, collisionService);
         laserService.Initialize();
 
-        var ufoService = new UfoService(borderPlacementService, playerMessaging);
+        var ufoService = new UfoService(scoreFacade, borderPlacementService, playerMessaging);
 
         var uiIndicatorFacade = new UiIndicatorFacade(_indicatorsCanvasTransfrom);
         var positionIndicatorService = new PositionIndicatorService(uiIndicatorFacade, playerMessaging);
@@ -45,6 +46,8 @@ public class GameSessionRootState
         while (!token.IsCancellationRequested)
         {
             var gameSessionMessaging = new GameSessionMessaging();
+
+            scoreFacade.Reset();
 
             var stateMachine = new GameSessionStateMachine(
                 playerMessaging,

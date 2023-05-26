@@ -7,13 +7,18 @@ public class UfoService : IUfoSpawnService, IUfoDespawnService
 
     private readonly IOutOfScreenPlacementService _outOfScreenPlacementService;
     private readonly UfoFacade _ufoFacade;
+    private readonly ScoresFacade _scoresFacade;
 
     private bool _isUfoSpawned;
 
     private IUfoToPlayfieldMessaging _ufo;
 
-    public UfoService(IOutOfScreenPlacementService outOfScreenPlacementService, IPlayerToPlayfieldMessaging playerMessaging)
+    public UfoService(
+        ScoresFacade scoresFacade,
+        IOutOfScreenPlacementService outOfScreenPlacementService,
+        IPlayerToPlayfieldMessaging playerMessaging)
     {
+        _scoresFacade = scoresFacade;
         _outOfScreenPlacementService = outOfScreenPlacementService;
         _ufoFacade = new UfoFacade(playerMessaging);
     }
@@ -68,6 +73,8 @@ public class UfoService : IUfoSpawnService, IUfoDespawnService
         _isUfoSpawned = false;
 
         ufo.CollisionEvent -= OnCollisionEvent;
+
+        _scoresFacade.RegisterUfo();
 
         ufo.Hide();
     }
