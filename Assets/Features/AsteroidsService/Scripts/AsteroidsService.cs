@@ -26,10 +26,13 @@ public class AsteroidsService : ISpawnAsteroidsService, IDespawnAsteroidsService
         _asteroidsFacade = new AsteroidsFacade(loopPlacementService, InitalCacheSize, InitalCacheSize);
     }
 
-    public async Awaitable SpawnAsteroids(CancellationToken token)
+    public void Initialize()
     {
         _asteroidsFacade.Prewarm();
+    }
 
+    public async Awaitable SpawnAsteroids(CancellationToken token)
+    {
         while (!token.IsCancellationRequested)
         {
             await Awaitable.WaitForSecondsAsync(DelayBetweenSpawn, token);

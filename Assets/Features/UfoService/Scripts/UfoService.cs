@@ -5,8 +5,8 @@ public class UfoService : IUfoSpawnService, IUfoDespawnService
 {
     private const float UfoSpawnDelay = 1f;
 
-    private readonly IPlayerToPlayfieldMessaging _playerMessaging;
     private readonly IOutOfScreenPlacementService _outOfScreenPlacementService;
+    private readonly UfoFacade _ufoFacade;
 
     private bool _isUfoSpawned;
 
@@ -14,51 +14,52 @@ public class UfoService : IUfoSpawnService, IUfoDespawnService
 
     public UfoService(IOutOfScreenPlacementService outOfScreenPlacementService, IPlayerToPlayfieldMessaging playerMessaging)
     {
-        _playerMessaging = playerMessaging;
         _outOfScreenPlacementService = outOfScreenPlacementService;
+        _ufoFacade = new UfoFacade(playerMessaging);
     }
 
     public async Awaitable Execute(CancellationToken token)
     {
-        var facade = new UfoFacade(_playerMessaging);
-
-        var ufoMessaging = facade.Spawn();
-
         while (!token.IsCancellationRequested)
         {
             await Awaitable.WaitForSecondsAsync(UfoSpawnDelay, token);
 
-            if(token.IsCancellationRequested)
+            if (token.IsCancellationRequested)
             {
                 break;
             }
 
-            TrySpawn(ufoMessaging);
+            TrySpawn();
         }
 
     }
 
     public void DespawnAll()
     {
-        if(_ufo != null)
+        if (_ufo != null)
         {
+            _isUfoSpawned = false;
             _ufo.Hide();
         }
     }
 
-    private void TrySpawn(IUfoToPlayfieldMessaging ufo)
+    private void TrySpawn()
     {
         if (!_isUfoSpawned)
         {
+            if (_ufo == null)
+            {
+                _ufo = _ufoFacade.Spawn();
+            }
+
             _isUfoSpawned = true;
 
             var position = _outOfScreenPlacementService.GetRandomPositionAtScreenBorder();
 
-            ufo.Show(position);
+            _ufo.Show(position);
 
-            _ufo = ufo;
 
-            ufo.CollisionEvent += OnCollisionEvent;
+            _ufo.CollisionEvent += OnCollisionEvent;
         }
     }
 
@@ -69,7 +70,5 @@ public class UfoService : IUfoSpawnService, IUfoDespawnService
         ufo.CollisionEvent -= OnCollisionEvent;
 
         ufo.Hide();
-
-        _ufo = null;
     }
 }

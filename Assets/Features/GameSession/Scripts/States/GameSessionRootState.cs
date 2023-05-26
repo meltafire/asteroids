@@ -19,7 +19,10 @@ public class GameSessionRootState
         var borderPlacementService = new BorderPlacementService(Camera.main);
 
         var playerMessaging = LaunchPlayerFeature(borderPlacementService, collisionService);
+
         var asteroidsService = new AsteroidsService(borderPlacementService, borderPlacementService);
+        asteroidsService.Initialize();
+
         var bulletService = LaunchBulletFeature(playerMessaging, borderPlacementService, collisionService);
 
         var laserService = LaunchLaserFeature(playerMessaging, collisionService);
