@@ -1,16 +1,16 @@
 using UnityEngine;
 
-public class GameOverViewFactory
+public class GameOverViewFactory : AssetLoader
 {
-    private const string StartScreenAdress = "GameOver/GameOverScreen";
+    private const string GameOverScreen = "GameOverScreen";
 
-    public void Create(RectTransform parrentTransform, out OneButtonWindowView windowView, out GameOverScoreView scoreView)
+    public async Awaitable<(OneButtonWindowView, GameOverScoreView)> Create(RectTransform parrentTransform)
     {
-        var gameObject = Resources.Load<GameObject>(StartScreenAdress);
+        var go = await Load(GameOverScreen, parrentTransform);
 
-        var instantiatedObject = GameObject.Instantiate(gameObject, parrentTransform);
+        var windowView = go.GetComponent<OneButtonWindowView>();
+        var scoreView = go.GetComponent<GameOverScoreView>();
 
-        windowView = instantiatedObject.GetComponent<OneButtonWindowView>();
-        scoreView = instantiatedObject.GetComponent<GameOverScoreView>();
+        return (windowView, scoreView);
     }
 }

@@ -14,9 +14,7 @@ public class GameOverFacade
     {
         var viewFactory = new GameOverViewFactory();
 
-        OneButtonWindowView view;
-        GameOverScoreView scoreView;
-        viewFactory.Create(_parentTransform, out view, out scoreView);
+        var (view, scoreView) = await viewFactory.Create(_parentTransform);
 
         var model = new OneButtonWindowModel(view);
 
@@ -29,6 +27,6 @@ public class GameOverFacade
 
         await rootState.Execute(token);
 
-        await Resources.UnloadUnusedAssets();
+        viewFactory.Unload();
     }
 }

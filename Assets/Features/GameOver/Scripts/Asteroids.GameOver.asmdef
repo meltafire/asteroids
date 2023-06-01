@@ -4,7 +4,8 @@
     "references": [
         "Asteroids.Infrastructure",
         "Unity.TextMeshPro",
-        "Asteroids.Scores"
+        "Asteroids.Scores",
+        "Asteroids.AssetLoader"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

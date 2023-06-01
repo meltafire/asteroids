@@ -1,9 +1,9 @@
 {
-    "name": "Asteroids.StartScreen",
+    "name": "Asteroids.AssetLoader",
     "rootNamespace": "",
     "references": [
-        "Asteroids.Infrastructure",
-        "Asteroids.AssetLoader"
+        "Unity.Addressables",
+        "Unity.ResourceManager"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

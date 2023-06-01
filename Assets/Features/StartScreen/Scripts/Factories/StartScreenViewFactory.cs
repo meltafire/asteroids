@@ -1,13 +1,13 @@
 using UnityEngine;
 
-public class StartScreenViewFactory
+public class StartScreenViewFactory : AssetLoader
 {
-    private const string StartScreenAdress = "StartScreen/StartScreen";
+    private const string StartScreenAdress = "StartScreen";
 
-    public OneButtonWindowView Create(RectTransform parrentTransform)
+    public async Awaitable<OneButtonWindowView> Create(RectTransform parrentTransform)
     {
-        var gameObject = Resources.Load<GameObject>(StartScreenAdress);
+        var go = await Load(StartScreenAdress, parrentTransform);
 
-        return GameObject.Instantiate(gameObject, parrentTransform).GetComponent<OneButtonWindowView>();
+        return go.GetComponent<OneButtonWindowView>();
     }
 }

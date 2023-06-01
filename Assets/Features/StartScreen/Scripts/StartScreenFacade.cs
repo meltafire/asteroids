@@ -13,7 +13,7 @@ public class StartScreenFacade
     public async Awaitable Execute(CancellationToken token)
     {
         var viewFactory = new StartScreenViewFactory();
-        var view = viewFactory.Create(_parentTransform);
+        var view = await viewFactory.Create(_parentTransform);
 
         var model = new OneButtonWindowModel(view);
 
@@ -26,6 +26,6 @@ public class StartScreenFacade
 
         await rootState.Execute(token);
 
-        await Resources.UnloadUnusedAssets();
+        viewFactory.Unload();
     }
 }
